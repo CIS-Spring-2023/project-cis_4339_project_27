@@ -4,8 +4,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'Home',
     props: true,
     component: () => import('../components/homePage.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    props: true,
+    component: () => import('../components/login.vue')
   },
   {
     path: '/intakeform',
