@@ -1,57 +1,60 @@
 <template>
     <main>
-        <div class = "login">
-            <form @submit.prevent = "loginSubmit()">
-                <h3>Login</h3>
 
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form" v-model="username" placeholder="Enter username">
-                </div>
+        <form @submit.prevent="loginSubmit">
+            <div id="login">
+                <h1>Login</h1>
+                <input type="text" name="username" v-model="input.username" placeholder="Username" />
+                <input type="password" name="password" v-model="input.password" placeholder="Password" />
+                <button type="button" v-on:click="loginSubmit()">Login</button>
+            </div>
+        </form>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form" v-model="password" placeholder="Enter password">
-                </div>
-
-                <button class="btn btn-primary btn-block" v-on:click = "loginSubmit">Submit</button>
-            </form>
-        </div>
     </main>
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+
+export default {
+    setup() {
+        return { v$: useVuelidate({ $autoDirty: true }) }
+    },
+    data() {
+        return {
+            input: {
                 username: '',
                 password: ''
             }
-        },
-        methods : {
-            loginSubmit() {
-                console.log(this.username, this.password);
+        }
+    },
+    methods: {
+        async loginSubmit() {
+            const isFormCorrect = await this.v$.$validate();
 
-                if (result.status == 200) {
-                    localStorage.setItem("user-info", JSON.stringify(result.data))
-                    this.$router.push({name:'Home'})
-                }
+            if (isFormCorrect) {
+                console.log(this.input.username, this.input.password);
             }
-        },
-        mounted() {
-            let user = localStorage.getItem('user-info');
-            if(user) {
-                this.$router.push({name: 'Home'})
+
+        }
+    },
+    validations() {
+        return {
+            input: {
+                username: { required },
+                password: { required }
             }
         }
     }
+}
 </script>
 
 <style>
 .login {
+    display: grid;
+    place-items: center;
     border: solid black;
-    text-align: center;
+    margin: auto;
 }
-
-
 </style>
