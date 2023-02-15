@@ -51,7 +51,7 @@ export default {
         loginSubmit() {
             if (this.input.username == 'admin' && this.input.password == 'pass') {
                 sessionStorage.setItem('login', JSON.stringify(this.users[0]));
-                this.$router.push({ name: 'Home' });
+                this.$router.push({ name: 'Home' }).then (() => {this.$router.go()});
             } else {
                 console.log('Invalid username/password')
             }

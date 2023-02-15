@@ -20,7 +20,7 @@ export default {
     },
     logOut() {
       sessionStorage.clear();
-      this.$router.push({ name: 'login' })
+      this.$router.push({ name: 'login' }).then (() => {this.$router.go()})
     }
   }
 }
