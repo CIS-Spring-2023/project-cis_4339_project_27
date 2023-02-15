@@ -11,14 +11,31 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    props: true,
+    meta: { layout: 'blank' },
     component: () => import('../components/login.vue')
   },
   {
     path: '/intakeform',
     name: 'intakeform',
     props: true,
-    component: () => import('../components/intakeForm.vue')
+    component: () => import('../components/intakeForm.vue'),
+    beforeEnter: (to, from, next) => {
+      let user = sessionStorage.getItem('login');
+
+      let json = JSON.parse(user);
+
+      if (!user) {
+        alert('Unauthorized access. Redirecting to Dashboard');
+        next({ path: '/' })
+      } else {
+        if (json.role === 'editor') {
+          next()
+        } else {
+          alert('Unauthorized access. Redirecting to Dashboard');
+          next({ path: '/' })
+        }
+      }
+    }
   },
   {
     path: '/findclient',
@@ -52,4 +69,15 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   const protectedRoutes = ['/intakeform', '/eventform']; 
+//   if (protectedRoutes.includes(to.path)) {
+//     return next ('/unauthorised');
+//   }
+//   else {
+//     return next ();
+//   }
+// })
+
 export default router

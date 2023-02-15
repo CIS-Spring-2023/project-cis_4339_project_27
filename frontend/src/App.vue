@@ -6,16 +6,26 @@ export default {
   name: 'App',
   data() {
     return {
-      orgName: 'Dataplatform'
+      orgName: 'Dataplatform',
     }
   },
   created() {
     axios.get(`${apiURL}/org`).then((res) => {
       this.orgName = res.data.name
     })
+  },
+  methods: {
+    checkIfLogin () {
+      return sessionStorage.getItem('login')
+    },
+    logOut() {
+      sessionStorage.clear();
+      this.$router.push({ name: 'login' })
+    }
   }
 }
 </script>
+
 <template>
   <main class="flex flex-row">
     <div id="_container" class="h-screen">
@@ -25,14 +35,24 @@ export default {
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
+            <!--Add v-if component to login route link to check if user is logged in
+            and change login route to logout-->
             <li>
-              <router-link to="/login">
+              <router-link to="/login" v-if="!checkIfLogin()">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
                   >login</span
                 >
                 Login
+              </router-link>
+              <router-link to="/login" v-if="checkIfLogin()" v-on:click="logOut()">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >logout</span
+                >
+                Logout
               </router-link>
             </li>
             <li>
@@ -102,6 +122,7 @@ export default {
     </div>
   </main>
 </template>
+
 <style>
 #_container {
   background-color: #c8102e;
