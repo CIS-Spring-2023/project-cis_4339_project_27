@@ -2,11 +2,13 @@
 import { DateTime } from 'luxon'
 import axios from 'axios'
 import AttendanceChart from './barChart.vue'
+import ClientChart from './pieChart.vue'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   components: {
-    AttendanceChart
+    AttendanceChart,
+    ClientChart
   },
   data() {
     return {
@@ -14,7 +16,9 @@ export default {
       labels: [],
       chartData: [],
       loading: false,
-      error: null
+      error: null,
+      pielabels: ['77031', '77501', '77584'],
+      pieData: [30, 20, 25]
     }
   },
   mounted() {
@@ -82,6 +86,7 @@ export default {
       <div
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
       >
+        <!--Table section to show event detail and attendees-->
         <div class="ml-10"></div>
         <div class="flex flex-col col-span-2">
           <table class="min-w-full shadow-md rounded">
@@ -104,6 +109,8 @@ export default {
               </tr>
             </tbody>
           </table>
+
+          <!--Attendace chart section-->
           <div>
             <AttendanceChart
               v-if="!loading && !error"
@@ -131,6 +138,33 @@ export default {
               </p>
             </div>
             <!-- End of error alert -->
+          </div>
+          <!--End of Attendance chart-->
+
+
+          <table class="min-w-full shadow-md rounded">
+            <thead class="bg-gray-50 text-xl">
+              <tr class="p-4 text-left">
+                <th class="p-4 text-left">Zip Code</th>
+                <th class="p-4 text-left">Number of Clients</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-300">
+              <tr
+                v-for="(label, i) in pielabels"
+                :key="i"
+              >
+                <td class="p-2 text-left">{{ label[i] }}</td>
+                <td class="p-2 text-left">{{ pieData[i] }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <!--Client by zip chart section-->
+          <div>
+            <ClientChart
+              :label="pielabels"
+              :chart-data="pieData">
+            </ClientChart>
           </div>
         </div>
       </div>

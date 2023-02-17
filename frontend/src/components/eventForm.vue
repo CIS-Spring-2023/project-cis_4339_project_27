@@ -55,6 +55,8 @@ export default {
   }
 }
 </script>
+
+<!--Start of template for component-->
 <template>
   <main>
     <div>

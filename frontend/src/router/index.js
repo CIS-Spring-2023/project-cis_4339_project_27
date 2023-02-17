@@ -31,7 +31,7 @@ const routes = [
         if (json.role === 'editor') {
           next()
         } else {
-          alert('Unauthorized access. Redirecting to Dashboard');
+          alert(`You don't have the role to edit this. Redirecting to Dashboard`);
           next({ path: '/' })
         }
       }
@@ -51,7 +51,24 @@ const routes = [
   {
     path: '/eventform',
     name: 'eventform',
-    component: () => import('../components/eventForm.vue')
+    component: () => import('../components/eventForm.vue'),
+    beforeEnter: (to, from, next) => {
+      let user = sessionStorage.getItem('login');
+
+      let json = JSON.parse(user);
+
+      if (!user) {
+        alert('Unauthorized access. Redirecting to Dashboard');
+        next({ path: '/' })
+      } else {
+        if (json.role === 'editor') {
+          next()
+        } else {
+          alert(`You don't have the role to edit this. Redirecting to Dashboard`);
+          next({ path: '/' })
+        }
+      }
+    }
   },
   {
     path: '/findevents',

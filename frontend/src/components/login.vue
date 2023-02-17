@@ -5,18 +5,18 @@
             <form class="form-thing" @submit.prevent="loginSubmit">
                 <h1 class="text-2xl font-bold">Login Page</h1>
                 <div class="form-input">
-                    <input type="text" name="username" v-model="input.username" placeholder="Username" />
+                    <input class="input-group" type="text" name="username" v-model="input.username" placeholder="Username" />
                 </div>
                 <div class="form-input">
-                    <input type="password" name="password" v-model="input.password" placeholder="Password" />
+                    <input class="input-group" type="password" name="password" v-model="input.password" placeholder="Password" />
                 </div>
                 <div class="form-input">
-                    <button type="button" v-on:click="loginSubmit()">Login</button>
+                    <button  class="btn-grp" type="button" v-on:click="loginSubmit()">Login</button>
                 </div>
             </form>
         </div>
 
-    </main>
+</main>
 </template>
 
 <script>
@@ -51,7 +51,7 @@ export default {
         loginSubmit() {
             if (this.input.username == 'admin' && this.input.password == 'pass') {
                 sessionStorage.setItem('login', JSON.stringify(this.users[0]));
-                this.$router.push({ name: 'Home' }).then (() => {this.$router.go()});
+                this.$router.push({ name: 'Home' }).then(() => { this.$router.go() });
             } else {
                 console.log('Invalid username/password')
             }
@@ -77,7 +77,7 @@ export default {
 <style>
 .login {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 60px;
 }
 
 .form-input {
@@ -85,7 +85,14 @@ export default {
     border: none;
 }
 
-.form-input button {
-    border: solid black;
+.input-group {
+    width: 25%;
+    height: 10%;
+}
+
+.btn-grp{
+    background-color: blue;
+    color: white;
+    width: 25%;
 }
 </style>
