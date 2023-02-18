@@ -105,6 +105,16 @@ export default {
                 Find Event
               </router-link>
             </li>
+            <li>
+              <router-link to="/services">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >list</span
+                >
+                Services
+              </router-link>
+            </li>
           </ul>
         </nav>
       </header>
