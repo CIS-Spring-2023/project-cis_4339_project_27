@@ -90,6 +90,16 @@ export default {
               </router-link>
             </li>
             <li>
+              <router-link to="/createService">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >list</span
+                >
+                TEST Create Service
+              </router-link>
+            </li>
+            <li>
               <router-link to="/findclient">
                 <span
                   style="position: relative; top: 6px"
@@ -107,16 +117,6 @@ export default {
                   >search</span
                 >
                 Find Event
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/createService">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >list</span
-                >
-                TEST Create Service
               </router-link>
             </li>
             

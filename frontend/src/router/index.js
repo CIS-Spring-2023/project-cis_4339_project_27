@@ -109,14 +109,6 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const protectedRoutes = ['/intakeform', '/eventform']; 
-//   if (protectedRoutes.includes(to.path)) {
-//     return next ('/unauthorised');
-//   }
-//   else {
-//     return next ();
-//   }
-// })
+
 
 export default router

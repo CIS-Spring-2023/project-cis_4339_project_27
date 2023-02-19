@@ -141,7 +141,7 @@ export default {
           </div>
           <!--End of Attendance chart-->
 
-
+          <!--Table for zip and number of clients-->
           <table class="min-w-full shadow-md rounded">
             <thead class="bg-gray-50 text-xl">
               <tr class="p-4 text-left">
@@ -154,7 +154,7 @@ export default {
                 v-for="(label, i) in pielabels"
                 :key="i"
               >
-                <td class="p-2 text-left">{{ label[i] }}</td>
+                <td class="p-2 text-left">{{ label }}</td>
                 <td class="p-2 text-left">{{ pieData[i] }}</td>
               </tr>
             </tbody>

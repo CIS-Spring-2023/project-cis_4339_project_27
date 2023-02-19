@@ -5,18 +5,20 @@
             <form class="form-thing" @submit.prevent="loginSubmit">
                 <h1 class="text-2xl font-bold">Login Page</h1>
                 <div class="form-input">
-                    <input class="input-group" type="text" name="username" v-model="input.username" placeholder="Username" />
+                    <input class="input-group" type="text" name="username" v-model="input.username"
+                        placeholder="Username" />
                 </div>
                 <div class="form-input">
-                    <input class="input-group" type="password" name="password" v-model="input.password" placeholder="Password" />
+                    <input class="input-group" type="password" name="password" v-model="input.password"
+                        placeholder="Password" />
                 </div>
-                <div class="form-input">
-                    <button  class="btn-grp" type="button" v-on:click="loginSubmit()">Login</button>
+                <div>
+                    <button class="btn-grp" type="button" v-on:click="loginSubmit()">Login</button>
                 </div>
             </form>
         </div>
 
-</main>
+    </main>
 </template>
 
 <script>
@@ -55,6 +57,12 @@ export default {
             } else {
                 console.log('Invalid username/password')
             }
+            if (this.input.username == 'local' && this.input.password == '1234') {
+                sessionStorage.setItem('login', JSON.stringify(this.users[1]));
+                this.$router.push({ name: 'Home' }).then(() => { this.$router.go() });
+            } else {
+                console.log('Invalid username/password')
+            }
         }
     },
     mounted() {
@@ -76,22 +84,26 @@ export default {
 
 <style>
 .login {
-    text-align: center;
     padding-top: 60px;
+    text-align: center;
+    justify-content: center;
 }
 
 .form-input {
-    padding: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
     border: none;
+    margin: auto;
+    padding-left: 487px;
 }
 
 .input-group {
-    width: 25%;
-    height: 10%;
+    width: 40%;
+    height: 45%;
 }
 
-.btn-grp{
-    background-color: blue;
+.btn-grp {
+    background-color: #c8102e;
     color: white;
     width: 25%;
 }

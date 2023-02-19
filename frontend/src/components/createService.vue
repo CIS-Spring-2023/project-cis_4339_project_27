@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <table>
-      <thead>
+  <div class="row justify-content-center">
+    <table class="table table-striped">
+      <thead class="table-dark">
         <tr>
-          <th>ID</th>
           <th>Service</th>
           <th>Description</th>
           <th>Action</th>
@@ -11,22 +10,16 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
-          <td>{{ item.id }}</td>
+          <td>{{ item.service }}</td>
+          <td>{{item.description}}</td>
           <td>
-            <input type="text" v-model="item.service" />
-          </td>
-          <td>
-            <input type="text" v-model="item.description" />
-          </td>
-          <td>
-            <button @click="deleteItem(index)">Delete</button>
+            <button @click.prevent="deleteItem()" class="btn btn-danger mx-2">Delete</button>
           </td>
         </tr>
         <tr>
           <td><button @click="addItem">Add</button></td>
           <td><input type="text" v-model="newItem.service" /></td>
           <td><input type="text" v-model="newItem.description" /></td>
-          <td></td>
         </tr>
       </tbody>
     </table>
@@ -66,3 +59,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.row.justify-content-center{
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+</style>

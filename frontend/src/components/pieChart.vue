@@ -26,6 +26,13 @@ export default {
                             'orange']
                     }
                 ]
+            },
+            options : {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
             }
         }
         );
@@ -38,3 +45,4 @@ export default {
         <canvas id="p-10" ref="myChart"></canvas>
     </div>
 </template>
+
