@@ -82,9 +82,26 @@ const routes = [
     component: () => import('../components/eventDetails.vue')
   },
   {
-    path: '/services',
-    name: 'services',
-    component: () => import('../components/services.vue')
+    path: '/createService',
+    name: 'createService',
+    component: () => import('../components/createService.vue'),
+    beforeEnter: (to, from, next) => {
+      let user = sessionStorage.getItem('login');
+
+      let json = JSON.parse(user);
+
+      if (!user) {
+        alert('Unauthorized access. Redirecting to Dashboard');
+        next({ path: '/' })
+      } else {
+        if (json.role === 'editor') {
+          next()
+        } else {
+          alert(`You don't have the role to edit this. Redirecting to Dashboard`);
+          next({ path: '/' })
+        }
+      }
+    }
   }
 ]
 const router = createRouter({

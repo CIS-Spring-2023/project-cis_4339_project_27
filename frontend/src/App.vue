@@ -106,15 +106,16 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link to="/services">
+              <router-link to="/createService">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
                   >list</span
                 >
-                Services
+                TEST Create Service
               </router-link>
             </li>
+            
           </ul>
         </nav>
       </header>
