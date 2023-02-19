@@ -96,7 +96,7 @@ export default {
                   class="material-icons"
                   >list</span
                 >
-                TEST Create Service
+                Services
               </router-link>
             </li>
             <li>
