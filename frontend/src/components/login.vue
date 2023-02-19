@@ -93,8 +93,7 @@ export default {
     padding-bottom: 20px;
     padding-top: 10px;
     border: none;
-    margin: auto;
-    padding-left: 487px;
+    padding-left: 37.5%;
 }
 
 .input-group {
