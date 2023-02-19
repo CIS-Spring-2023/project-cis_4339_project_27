@@ -1,6 +1,10 @@
 <script>
+import { BTable } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
+
 
 export default {
   name: 'App',
