@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     checkIfLogin () {
-      return sessionStorage.getItem('login')
+      return sessionStorage.getItem('user')
     },
     logOut() {
       sessionStorage.clear();

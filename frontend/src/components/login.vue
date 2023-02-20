@@ -5,15 +5,13 @@
             <form class="form-thing" @submit.prevent="loginSubmit">
                 <h1 class="text-2xl font-bold">Login Page</h1>
                 <div class="form-input">
-                    <input class="input-group" type="text" name="username" v-model="input.username"
-                        placeholder="Username" />
+                    <input class="input-group" type="text" name="username" v-model="username" placeholder="Username" />
                 </div>
                 <div class="form-input">
-                    <input class="input-group" type="password" name="password" v-model="input.password"
-                        placeholder="Password" />
+                    <input class="input-group" type="password" name="password" v-model="password" placeholder="Password" />
                 </div>
                 <div>
-                    <button class="btn-grp" type="button" v-on:click="loginSubmit()">Login</button>
+                    <button class="btn-grp" type="submit">Login</button>
                 </div>
             </form>
         </div>
@@ -24,6 +22,8 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+const apiURL = import.meta.env.VITE_ROOT_API
+import axios from 'axios'
 
 export default {
     setup() {
@@ -31,52 +31,37 @@ export default {
     },
     data() {
         return {
-            users: [
-                {
-                    username: 'admin',
-                    password: 'pass',
-                    role: 'editor'
-                },
-                {
-                    username: 'local',
-                    pass: '1234',
-                    role: ''
-                }
-            ],
-            input: {
-                username: '',
-                password: ''
-            }
+            username: '',
+            password: ''
         }
     },
     methods: {
-        loginSubmit() {
-            if (this.input.username == 'admin' && this.input.password == 'pass') {
-                sessionStorage.setItem('login', JSON.stringify(this.users[0]));
-                this.$router.push({ name: 'Home' }).then(() => { this.$router.go() });
-            } else {
-                console.log('Invalid username/password')
-            }
-            if (this.input.username == 'local' && this.input.password == '1234') {
-                sessionStorage.setItem('login', JSON.stringify(this.users[1]));
-                this.$router.push({ name: 'Home' }).then(() => { this.$router.go() });
-            } else {
-                console.log('Invalid username/password')
-            }
+        async loginSubmit() {
+            axios.post(`${apiURL}/users`, { username: this.$data.username, password: this.$data.password })
+                .then((res) => {
+                    if (res.data) {
+                        sessionStorage.setItem('user', JSON.stringify(res.data))
+                        this.$router.push({ name: 'Home' }).then(location.reload())
+                        console.log(res)
+                    } else {
+                        alert('Invalid credentials');
+                        return;
+                    }
+
+
+                })
         }
     },
     mounted() {
-        let user = sessionStorage.getItem('login');
+        let user = sessionStorage.getItem('user');
         if (user) {
             this.$router.push({ name: 'Home' });
         }
     },
     validations() {
         return {
-            input: {
-                username: { required },
-                password: { required }
-            }
+            username: {required},
+            password: {required}
         }
     }
 }

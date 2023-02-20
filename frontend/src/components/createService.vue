@@ -5,24 +5,28 @@
         <tr>
           <th>Service</th>
           <th>Description</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
           <td>{{ item.service }}</td>
-          <td>{{item.description}}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.status }}</td>
           <td>
             <button @click.prevent="deleteItem()" class="btn btn-danger mx-2">Delete</button>
           </td>
         </tr>
-        <tr>
-          <td><button @click="addItem">Add</button></td>
-          <td><input type="text" v-model="newItem.service" /></td>
-          <td><input type="text" v-model="newItem.description" /></td>
-        </tr>
       </tbody>
     </table>
+  </div>
+  <div class="row justify-content-center">
+    <div>
+      <button class="btn btn-danger mx-2" type="button"  @click="addItem">New Service</button>
+      <input type="text" v-model="newItem.service" />
+      <input type="text" v-model="newItem.description" />
+    </div>
   </div>
 </template>
 
@@ -31,10 +35,10 @@ export default {
   data() {
     return {
       items: [
-        { id: 1, service: 'Product 1', description: '' },
-        { id: 2, service: 'Product 2', description: '' },
-        { id: 3, service: 'Product 3', description: '' },  
-        { id: 4, service: 'Product 4', description: ''}
+        { id: 1, service: 'Product 1', description: '', status: 'active' },
+        { id: 2, service: 'Product 2', description: '', status: 'active' },
+        { id: 3, service: 'Product 3', description: '', status: 'active' },
+        { id: 4, service: 'Product 4', description: '', status: 'active' }
       ],
       newItem: {
         id: null,
@@ -61,9 +65,17 @@ export default {
 </script>
 
 <style>
-.row.justify-content-center{
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
+.row.justify-content-center {
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.btn.btn-danger.mx-2{
+  background-color: #c8102e;
+}
+
+.btn.btn-danger.mx-2:hover{
+  opacity: 0.5;
+}
 </style>
