@@ -11,3 +11,4 @@ import { BootstrapVue } from 'bootstrap-vue'
 const app = createApp(App)
 app.use(router)
 app.mount('#app')
+/* This is a comment*/
