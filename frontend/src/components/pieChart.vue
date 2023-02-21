@@ -23,7 +23,10 @@ export default {
                         data: this.chartData,
                         backgroundColor: ['blue',
                             '#c8102e',
-                            'orange']
+                            'orange',
+                            'violet',
+                            'pink'
+                        ]
                     }
                 ]
             },

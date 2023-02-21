@@ -17,14 +17,15 @@ export default {
       chartData: [],
       loading: false,
       error: null,
-      pielabels: ['77031', '77501', '77584'],
-      pieData: [30, 20, 25]
+      pielabels: ['77001', '73301', '90001', '02115', '10000'],
+      pieData: [5, 3, 1, 1, 1]
     }
   },
   mounted() {
     this.getAttendanceData()
   },
   methods: {
+    // Get attendance from API
     async getAttendanceData() {
       try {
         this.error = null
@@ -58,6 +59,9 @@ export default {
       }
       this.loading = false
     },
+    //Get clients by zipcode API
+    
+    // Formatting date for barchart
     formattedDate(datetimeDB) {
       const dt = DateTime.fromISO(datetimeDB, {
         zone: 'utc'
@@ -151,11 +155,10 @@ export default {
             </thead>
             <tbody class="divide-y divide-gray-300">
               <tr
-                v-for="(label, i) in pielabels"
-                :key="i"
+              v-for="client, i in pielabels"
               >
-                <td class="p-2 text-left">{{ label }}</td>
-                <td class="p-2 text-left">{{ pieData[i] }}</td>
+                <td class="p-2 text-left">{{ client }}</td>
+                <td class="p-2 text-left">{{ this.pieData[i] }}</td>
               </tr>
             </tbody>
           </table>
