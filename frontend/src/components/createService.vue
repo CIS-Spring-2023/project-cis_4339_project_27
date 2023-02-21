@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in queryService" :key="index">
+        <tr v-for="(item, index) in items" :key="index">
           <td>{{ item.service }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.status }}</td>
@@ -38,10 +38,10 @@ export default {
   data() {
     return {
       items: [
-        { id: 1, service: 'Product 1', description: '' },
-        { id: 2, service: 'Product 2', description: '' },
-        { id: 3, service: 'Product 3', description: '' },  
-        { id: 4, service: 'Product 4', description: ''}
+        { id: 1, service: 'Product 1', description: '', status: 'active' },
+        { id: 2, service: 'Product 2', description: '', status: 'active' },
+        { id: 3, service: 'Product 3', description: '', status: 'active' },  
+        { id: 4, service: 'Product 4', description: '', status: 'active'}
       ],
       newItem: {
         id: null,
