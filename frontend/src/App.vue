@@ -90,7 +90,7 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link to="/createService">
+              <router-link to="/service">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"

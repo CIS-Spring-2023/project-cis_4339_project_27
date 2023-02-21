@@ -10,17 +10,17 @@
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
-          <th>Service</th>
+          <th>Service Name</th>
           <th>Description</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items" :key="index">
-          <td>{{ item.service }}</td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.status }}</td>
+        <tr v-for="service in servicesData" :key="service._id">
+          <td>{{ service.service }}</td>
+          <td>{{ service.description }}</td>
+          <td>{{ service.status }}</td>
           <td>
             <button @click.prevent="deleteItem()" class="btn btn-danger mx-2">Delete</button>
           </td>
@@ -38,15 +38,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+const apiURL = import.meta.env.VITE_ROOT_API
+
 export default {
   data() {
     return {
-      items: [
-        { id: 1, service: 'Product 1', description: '', status: 'active' },
-        { id: 2, service: 'Product 2', description: '', status: 'active' },
-        { id: 3, service: 'Product 3', description: '', status: 'active' },
-        { id: 4, service: 'Product 4', description: '', status: 'active' }
-      ],
+      servicesData: [],
       newItem: {
         id: null,
         service: '',
@@ -54,7 +52,15 @@ export default {
       }
     }
   },
+  created() {
+    this.getServicesData()
+  },
   methods: {
+    getServicesData () {
+      axios.get(`${apiURL}/services`).then((res) => {
+        this.servicesData = res.data
+      })
+    },
     deleteItem(index) {
       this.items.splice(index, 1);
     },

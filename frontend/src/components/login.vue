@@ -45,6 +45,8 @@ export default {
                         console.log(res)
                     } else {
                         alert('Invalid credentials');
+                        this.username = '';
+                        this.password ='';
                         return;
                     }
 

@@ -82,9 +82,9 @@ const routes = [
     component: () => import('../components/eventDetails.vue')
   },
   {
-    path: '/createService',
-    name: 'createService',
-    component: () => import('../components/createService.vue'),
+    path: '/service',
+    name: 'service',
+    component: () => import('../components/service.vue'),
     beforeEnter: (to, from, next) => {
       let user = sessionStorage.getItem('user');
 
