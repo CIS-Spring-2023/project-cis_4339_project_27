@@ -50,13 +50,12 @@ const usersDataSchema = new Schema(
 const servicesDataSchema = new Schema(
   {
     _id: { type: String, default: uuid.v1 },
-    service: {
+    serviceName: {
       type: String,
       required: true
     },
     description: {
       type: String,
-      required: true
     },
     status: {
       type: String,

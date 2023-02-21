@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         <tr v-for="service in servicesData" :key="service._id">
-          <td>{{ service.service }}</td>
+          <td>{{ service.serviceName }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td>
@@ -30,9 +30,7 @@
   </div>
   <div class="row justify-content-center">
     <div>
-      <button class="btn btn-danger mx-2" type="button"  @click="addItem">New Service</button>
-      <input type="text" v-model="newItem.service" />
-      <input type="text" v-model="newItem.description" />
+      <button class="btn btn-danger mx-2" type="button"  @click="$router.push('createservice')">New Service</button>
     </div>
   </div>
 </template>

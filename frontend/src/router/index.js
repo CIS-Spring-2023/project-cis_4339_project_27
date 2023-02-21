@@ -102,6 +102,11 @@ const routes = [
         }
       }
     }
+  },
+  {
+    path: '/createservice',
+    name: 'createservice',
+    component: () => import('../components/createService.vue')
   }
 ]
 const router = createRouter({
