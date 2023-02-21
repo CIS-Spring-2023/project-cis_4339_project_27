@@ -20,7 +20,7 @@ const routes = [
     props: true,
     component: () => import('../components/intakeForm.vue'),
     beforeEnter: (to, from, next) => {
-      let user = sessionStorage.getItem('login');
+      let user = sessionStorage.getItem('user');
 
       let json = JSON.parse(user);
 
@@ -53,7 +53,7 @@ const routes = [
     name: 'eventform',
     component: () => import('../components/eventForm.vue'),
     beforeEnter: (to, from, next) => {
-      let user = sessionStorage.getItem('login');
+      let user = sessionStorage.getItem('user');
 
       let json = JSON.parse(user);
 
@@ -86,7 +86,7 @@ const routes = [
     name: 'createService',
     component: () => import('../components/createService.vue'),
     beforeEnter: (to, from, next) => {
-      let user = sessionStorage.getItem('login');
+      let user = sessionStorage.getItem('user');
 
       let json = JSON.parse(user);
 

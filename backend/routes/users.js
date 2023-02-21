@@ -5,8 +5,17 @@ const org = process.env.ORG
 
 const { users } = require('../models/models')
 
-router.get('/users', (req, res, next) => {
-    users.find({ orgs: org})
+router.post('/', (req, res, next) => {
+    const {username, password} = req.body
+
+    users.findOne({ username: username, password: password}, (error, data) => {
+        if(error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+        
+    })
 })
 
 module.exports = router
