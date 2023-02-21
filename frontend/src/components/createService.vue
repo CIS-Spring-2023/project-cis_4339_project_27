@@ -1,5 +1,12 @@
 <template>
   <div class="row justify-content-center">
+    <div class="title-hd">
+      <h1
+        class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10"
+      >
+        List of Services
+      </h1>
+    </div>
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
@@ -65,6 +72,10 @@ export default {
 </script>
 
 <style>
+.title-hd {
+  padding-bottom: 50px;
+}
+
 .row.justify-content-center {
   padding-top: 30px;
   padding-left: 30px;
