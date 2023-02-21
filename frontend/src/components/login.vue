@@ -43,14 +43,13 @@ export default {
                         sessionStorage.setItem('user', JSON.stringify(res.data))
                         this.$router.push({ name: 'Home' }).then(location.reload())
                         console.log(res)
-                    } else {
-                        alert('Invalid credentials');
-                        this.username = '';
-                        this.password ='';
-                        return;
                     }
-
-
+                }) .catch ((err) => {
+                    if (err.response.status === 400) {
+                        alert(err.response.data.error);
+                        this.username = '';
+                        this.password = '';
+                    }
                 })
         }
     },

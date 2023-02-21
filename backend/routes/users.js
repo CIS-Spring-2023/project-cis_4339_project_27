@@ -5,17 +5,25 @@ const org = process.env.ORG
 
 const { users } = require('../models/models')
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const {username, password} = req.body
 
-    users.findOne({ username: username, password: password}, (error, data) => {
-        if(error) {
-            return next(error)
-        } else {
-            res.json(data)
+    if(!(username && password)){
+        return res.status(400).json({error: "Username and password are required"});
+    }
+
+    try{
+        let user = await users.findOne({ username });
+        if (!user) {
+            return res.status(400).json({error: "Invalid login"});
         }
-        
-    })
+
+        res.json(user);
+    } catch (err) {
+        console.log(err);
+        return next(err);
+    }
+   
 })
 
 module.exports = router

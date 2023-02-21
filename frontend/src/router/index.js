@@ -24,16 +24,11 @@ const routes = [
 
       let json = JSON.parse(user);
 
-      if (!user) {
-        alert('Unauthorized access. Redirecting to Dashboard');
-        next({ path: '/' })
+      if (json.role === 'editor') {
+        next()
       } else {
-        if (json.role === 'editor') {
-          next()
-        } else {
-          alert(`You don't have the role to edit this. Redirecting to Dashboard`);
-          next({ path: '/' })
-        }
+        alert(`You don't have the role to access this. Redirecting to Dashboard`);
+        next({ path: '/' })
       }
     }
   },
@@ -54,19 +49,13 @@ const routes = [
     component: () => import('../components/eventForm.vue'),
     beforeEnter: (to, from, next) => {
       let user = sessionStorage.getItem('user');
-
       let json = JSON.parse(user);
 
-      if (!user) {
-        alert('Unauthorized access. Redirecting to Dashboard');
-        next({ path: '/' })
+      if (json.role === 'editor') {
+        next()
       } else {
-        if (json.role === 'editor') {
-          next()
-        } else {
-          alert(`You don't have the role to edit this. Redirecting to Dashboard`);
-          next({ path: '/' })
-        }
+        alert(`You don't have the role to access this. Redirecting to Dashboard`);
+        next({ path: '/' })
       }
     }
   },
@@ -87,20 +76,15 @@ const routes = [
     component: () => import('../components/service.vue'),
     beforeEnter: (to, from, next) => {
       let user = sessionStorage.getItem('user');
-
       let json = JSON.parse(user);
 
-      if (!user) {
-        alert('Unauthorized access. Redirecting to Dashboard');
-        next({ path: '/' })
+      if (json.role === 'editor') {
+        next()
       } else {
-        if (json.role === 'editor') {
-          next()
-        } else {
-          alert(`You don't have the role to edit this. Redirecting to Dashboard`);
-          next({ path: '/' })
-        }
+        alert(`You don't have the role to access this. Redirecting to Dashboard`);
+        next({ path: '/' })
       }
+
     }
   },
   {

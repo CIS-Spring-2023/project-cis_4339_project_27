@@ -18,6 +18,11 @@ export default {
       this.orgName = res.data.name
     })
   },
+  computed: {
+    isLoggedIn() {
+      return !!window.sessionStorage.getItem('user')
+    }
+  },
   methods: {
     checkIfLogin () {
       return sessionStorage.getItem('user')
@@ -70,36 +75,6 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link to="/intakeform">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >people</span
-                >
-                Client Intake Form
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/eventform">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >event</span
-                >
-                Create Event
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/service">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >list</span
-                >
-                Services
-              </router-link>
-            </li>
-            <li>
               <router-link to="/findclient">
                 <span
                   style="position: relative; top: 6px"
@@ -119,7 +94,36 @@ export default {
                 Find Event
               </router-link>
             </li>
-            
+            <li>
+              <router-link to="/intakeform" v-if="isLoggedIn">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >people</span
+                >
+                Client Intake Form
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/eventform" v-if="isLoggedIn">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >event</span
+                >
+                Create Event
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/service" v-if="isLoggedIn">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >list</span
+                >
+                Services
+              </router-link>
+            </li>
           </ul>
         </nav>
       </header>
