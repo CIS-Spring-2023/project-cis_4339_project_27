@@ -23,7 +23,7 @@
           <td>{{ service.status }}</td>
           <td>
             <button @click.prevent="updateItem(service._id)" class="btn btn-danger mx-2">Edit</button>
-            <button @click.prevent="deleteItem(index)" class="btn btn-danger mx-2">Delete</button>
+            <button @click.prevent="deleteItem(service._id)" class="btn btn-danger mx-2">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -57,9 +57,16 @@ export default {
     })
   },
   methods: {
-    deleteItem(index) {
+    deleteItem(id) {
+      let deleteURL = `${apiURL}/services/${id}`;
+      //let indexofArrayItem = this.servicesData.findIndex(i => i._id === id);
+
       if(window.confirm("Do you really want to delete?")) {
-        this.servicesData.splice(index, 1);
+        axios.delete(deleteURL).then((res) => {
+          location.reload();
+        }).catch(error => {
+          console.log(error)
+        })
       }  
     },
     updateItem(serviceID) {
