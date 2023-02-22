@@ -45,6 +45,7 @@ router.post('/register', async (req, res) => {
     }
 
     const user = users.create(userData);
+    res.send('User has been created');
     console.log('Success')
 })
 module.exports = router
