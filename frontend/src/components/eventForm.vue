@@ -136,7 +136,7 @@ export default {
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 v-model="event.services"
                 :options="listServices"
-                :custom-label="serviceName"
+                :custom-label="listServices.serviceName"
                 :multiple="true"
                 :close-on-select="true"
                 placeholder="Select Services to be added"

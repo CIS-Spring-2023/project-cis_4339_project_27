@@ -17,12 +17,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="service in servicesData" :key="service._id">
+        <tr v-for="(service, index) in servicesData" :key="service._id">
           <td>{{ service.serviceName }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td>
-            <button @click.prevent="deleteItem()" class="btn btn-danger mx-2">Delete</button>
+            <button @click.prevent="updateItem(service._id)" class="btn btn-danger mx-2">Edit</button>
+            <button @click.prevent="deleteItem(index)" class="btn btn-danger mx-2">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -51,25 +52,18 @@ export default {
     }
   },
   created() {
-    this.getServicesData()
+    axios.get(`${apiURL}/services`).then((res) => {
+      this.servicesData = res.data;
+    })
   },
   methods: {
-    getServicesData () {
-      axios.get(`${apiURL}/services`).then((res) => {
-        this.servicesData = res.data
-      })
-    },
     deleteItem(index) {
-      this.items.splice(index, 1);
+      if(window.confirm("Do you really want to delete?")) {
+        this.servicesData.splice(index, 1);
+      }  
     },
-    addItem() {
-      this.newItem.id = this.items.length + 1;
-      this.items.push(this.newItem);
-      this.newItem = {
-        id: null,
-        service: '',
-        description: ''
-      }
+    updateItem(serviceID) {
+      this.$router.push({ name: 'updateservice', params: { id: serviceID } })
     }
   }
 }

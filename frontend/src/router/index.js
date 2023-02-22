@@ -91,6 +91,12 @@ const routes = [
     path: '/createservice',
     name: 'createservice',
     component: () => import('../components/createService.vue')
+  },
+  {
+    path: '/updateservice/:id',
+    name: 'updateservice',
+    props: true,
+    component: () => import('../components/updateService.vue')
   }
 ]
 const router = createRouter({
