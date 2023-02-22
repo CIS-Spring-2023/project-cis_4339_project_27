@@ -24,12 +24,14 @@ export default {
     }
   },
   methods: {
-    checkIfLogin () {
+    checkIfLogin() {
       return sessionStorage.getItem('user')
     },
     logOut() {
-      sessionStorage.clear();
-      this.$router.push({ name: 'login' }).then (() => {this.$router.go()})
+      if (window.confirm("Do you want to logout")) {
+        sessionStorage.clear();
+        this.$router.push({ name: 'login' }).then(() => { this.$router.go() })
+      }
     }
   }
 }
@@ -45,82 +47,50 @@ export default {
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
             <!--Add v-if component to login route link to check if user is logged in
-            and change login route to logout-->
+              and change login route to logout-->
             <li>
               <router-link to="/login" v-if="!checkIfLogin()">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >login</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">login</span>
                 Login
               </router-link>
               <router-link to="/login" v-if="checkIfLogin()" v-on:click="logOut()">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >logout</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">logout</span>
                 Logout
               </router-link>
             </li>
             <li>
               <router-link to="/">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >dashboard</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">dashboard</span>
                 Dashboard
               </router-link>
             </li>
             <li>
               <router-link to="/findclient">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >search</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Client
               </router-link>
             </li>
             <li>
               <router-link to="/findevents">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >search</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Event
               </router-link>
             </li>
             <li>
               <router-link to="/intakeform" v-if="isLoggedIn">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >people</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">people</span>
                 Client Intake Form
               </router-link>
             </li>
             <li>
               <router-link to="/eventform" v-if="isLoggedIn">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >event</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">event</span>
                 Create Event
               </router-link>
             </li>
             <li>
               <router-link to="/service" v-if="isLoggedIn">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >list</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">list</span>
                 Services
               </router-link>
             </li>
@@ -129,10 +99,8 @@ export default {
       </header>
     </div>
     <div class="grow w-4/5">
-      <section
-        class="justify-end items-center h-24 flex"
-        style="background: linear-gradient(250deg, #c8102e 70%, #efecec 50.6%)"
-      >
+      <section class="justify-end items-center h-24 flex"
+        style="background: linear-gradient(250deg, #c8102e 70%, #efecec 50.6%)">
         <h1 class="mr-20 text-3xl text-white">{{ this.orgName }}</h1>
       </section>
       <div>
