@@ -133,16 +133,15 @@ export default {
               <span class="text-gray-700">Services Offered at Event</span>
               <div class="flex flex-col">
                 <VueMultiselect
-                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                v-model="event.services"
-                :options="listServices"
-                :custom-label="listServices.serviceName"
-                :multiple="true"
-                :close-on-select="true"
-                placeholder="Select Services to be added"
-                label="serviceName"
-                track-by="serviceName"
-            />
+                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  v-model="event.services" 
+                  :options="listServices" 
+                  :custom-label="listServices.serviceName"
+                  :multiple="true" 
+                  :close-on-select="true" 
+                  placeholder="Select Services to be added" 
+                  label="serviceName"
+                  track-by="serviceName" />
               </div>
             </label>
           </div>
