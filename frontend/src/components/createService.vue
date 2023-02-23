@@ -10,11 +10,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items" :key="index">
+        <tr v-for="item in items" :key="item._id">
           <td>{{ item.service }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.status }}</td>
           <td>
+            <router-link :to="{service: 'update', params :{id: item._id}}" class="btn btn-green mx-2">Update</router-link>
             <button @click.prevent="deleteItem()" class="btn btn-danger mx-2">Delete</button>
           </td>
         </tr>
@@ -22,15 +23,17 @@
     </table>
   </div>
   <div class="row justify-content-center">
-    <div>
-      <button class="btn btn-danger mx-2" type="button"  @click="addItem">New Service</button>
-      <input type="text" v-model="newItem.service" />
-      <input type="text" v-model="newItem.description" />
-    </div>
+        <div>
+          <button @click.prevent ="$event => addItem()" class="btn btn-danger mx-2">Add Service</button>
+          <input type="text" v-model="newItem.service" placeholder="Service name" />
+          <input type="text" v-model="newItem.description" placeholder="Service Description " />
+          <input type="text" v-model="newItem.status" placeholder="Service status"/>
+        </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -43,22 +46,39 @@ export default {
       newItem: {
         id: null,
         service: '',
-        description: ''
+        description: '',
+        status:''
       }
     }
   },
   methods: {
-    deleteItem(index) {
-      this.items.splice(index, 1);
+    deleteItem(id) {
+      let apiURL = 'http://localhost:5173/createService/$(id)}';
+      let indexOfArrayItem = this.items.findIndex(i => i._id=== id );
+      if (window.confirm("Do you really want to delete?")) {
+        //call to backend
+          axios.delete(apiURL).then(() => {
+          //remove one element from Students array object to update data
+            this.items.splice(indexOfArrayItem, 1);
+            }).catch(error => {
+                console.log(error)
+             });
+            }
     },
+
     addItem() {
-      this.newItem.id = this.items.length + 1;
-      this.items.push(this.newItem);
+      let apiURL = 'http://localhost:5173/createService';
+
+      axios.post(apiURL, this.item).then(() => {
+      this.$router.push('/components');
       this.newItem = {
-        id: null,
         service: '',
-        description: ''
+        description: '',
+        status:''
       }
+      }).catch(error => {
+          console.log(error)
+      });
     }
   }
 }
@@ -76,6 +96,15 @@ export default {
 }
 
 .btn.btn-danger.mx-2:hover{
+  opacity: 0.5;
+}
+
+.btn.btn-green.mx-2{
+  background-color: green;
+  color: white;
+}
+
+.btn.btn-green.mx-2:hover{
   opacity: 0.5;
 }
 </style>
