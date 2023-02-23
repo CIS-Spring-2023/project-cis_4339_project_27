@@ -33,7 +33,7 @@ const usersDataSchema = new Schema(
     },
     role: {
       type: String,
-      required: true
+      required: false
     },
     orgs: {
       type: [{ type: String, ref: 'org' }],
