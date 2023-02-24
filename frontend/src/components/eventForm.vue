@@ -30,9 +30,10 @@ export default {
     }
   },
   created() {
-    axios.get(`${apiURL}/services`).then((res) => {
-      this.listServices = res.data.filter(i => i.status === 'active')
-    })
+    // axios.get(`${apiURL}/services`).then((res) => {
+    //   this.listServices = res.data.filter(i => i.status === 'active')
+    // })
+    this.listServices = JSON.parse(localStorage.getItem('services') || '[]')
   },
   methods: {
     async handleSubmitForm() {
@@ -67,13 +68,13 @@ export default {
 <!--Start of template for component-->
 <template>
   <main>
-    <div>
-      <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">
-        Create New Event
-      </h1>
-    </div>
-    <div class="px-10 py-20">
-      <!-- @submit.prevent stops the submit event from reloading the page-->
+  <div>
+    <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">
+      Create New Event
+    </h1>
+  </div>
+  <div class="px-10 py-20">
+    <!-- @submit.prevent stops the submit event from reloading the page-->
       <form @submit.prevent="handleSubmitForm">
         <!-- grid container -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
@@ -132,16 +133,26 @@ export default {
             <label class="block">
               <span class="text-gray-700">Services Offered at Event</span>
               <div class="flex flex-col">
-                <VueMultiselect
-                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  v-model="event.services" 
-                  :options="listServices" 
-                  :custom-label="listServices.serviceName"
-                  :multiple="true" 
-                  :close-on-select="true" 
-                  placeholder="Select Services to be added" 
-                  label="serviceName"
-                  track-by="serviceName" />
+                <!-- <VueMultiselect
+                      class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      v-model="event.services" 
+                      :options="listServices" 
+                      :custom-label="listServices.serviceName"
+                      :multiple="true" 
+                      :close-on-select="true" 
+                      placeholder="Select Services to be added" 
+                      label="serviceName"
+                      track-by="serviceName" /> -->
+                <div v-for="(service,index) in listServices" :key="index">
+                  <div v-if="service.status === 'active'">
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" :value="index" v-model="event.services"
+                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                        notchecked />
+                      <span class="ml-2">{{ service.name }}</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </label>
           </div>
