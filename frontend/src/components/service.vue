@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr v-for="(service, index) in servicesData" :key="id">
-          <td>{{ service.name }}</td>
+          <td>{{ service.service }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td>
@@ -26,52 +26,46 @@
       </tbody>
     </table>
   </div>
+
+  <!--Create new service form for front end-->
   <div class="row justify-content-center">
-    <div>
-      <button class="btn btn-danger mx-2" type="button" @click="addItem">New Service</button>
-    </div>
-    <div class="flex flex-col">
-      <label class="block">
-        <span class="text-gray-700">Service Name</span>
-        <span style="color: #ff0000">*</span>
-        <input type="text"
-          class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          v-model="newItem.name" />
-        <span class="text-black" v-if="v$.newItem.name.$error">
-          <p class="text-red-700" v-for="error of v$.newItem.name.$errors" :key="error.$id">
-            {{ error.$message }}!
-          </p>
-        </span>
-      </label>
-    </div>
-    <!-- form field -->
-    <div class="flex flex-col">
-      <label class="block">
-        <span class="text-gray-700">Status</span>
-        <span style="color: #ff0000">*</span>
-        <input type="text"
-          class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          v-model="newItem.status" />
-        <span class="text-black" v-if="v$.newItem.status.$error">
-          <p class="text-red-700" v-for="error of v$.newItem.status.$errors" :key="error.$id">
-            {{ error.$message }}!
-          </p>
-        </span>
-      </label>
-    </div>
+    <form @submit.prevent="addItem">
+      <div class="flex flex-col">
+        <label class="block">
+          <span class="text-gray-700">Service Name</span>
+          <span style="color: #ff0000">*</span>
+          <input type="text"
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            v-model="newItem.service" required/>
+        </label>
+      </div>
+      <!-- form field -->
+      <div class="flex flex-col">
+        <label class="block">
+          <span class="text-gray-700">Status</span>
+          <span style="color: #ff0000">*</span>
+          <input type="text"
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            v-model="newItem.status" required/>
+        </label>
+      </div>
 
-    <!-- form field -->
-    <div></div>
-    <div></div>
+      <!-- form field -->
+      <div></div>
+      <div></div>
 
-    <div class="flex flex-col">
-      <label class="block">
-        <span class="text-gray-700">Description</span>
-        <textarea v-model="newItem.description"
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          rows="2"></textarea>
-      </label>
-    </div>
+      <div class="flex flex-col">
+        <label class="block">
+          <span class="text-gray-700">Description</span>
+          <textarea v-model="newItem.description"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            rows="2"></textarea>
+        </label>
+      </div>
+      <div>
+        <button class="btn btn-danger mx-2" type="submit">New Service</button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -90,25 +84,25 @@ export default {
       servicesData: [
         {
           id: 1,
-          name: 'Free Dental',
+          service: 'Free Dental',
           description: 'Free dental checkup for everyone',
           status: 'active'
         },
         {
           id: 2,
-          name: 'Free Checkup',
+          service: 'Free Checkup',
           description: 'Free general checkup for everyone',
           status: 'active'
         },
         {
           id: 3,
-          name: 'Blood Letting',
+          service: 'Blood Letting',
           description: 'Donate blood and get rewarded',
           status: 'active'
         },
       ],
       newItem: {
-        id: null,
+        id: '',
         service: '',
         description: '',
         status: ''
@@ -140,11 +134,10 @@ export default {
         this.newItem.id = this.servicesData.length + 1;
         this.servicesData.push(this.newItem);
         this.newItem = {
-          id: null,
           service: '',
           description: '',
           status: ''
-        } 
+        }
       }
     },
     updateItem(serviceID) {
@@ -154,7 +147,7 @@ export default {
   validations() {
     return {
       newItem: {
-        name: { required },
+        service: { required },
         status: { required }
       }
     }
