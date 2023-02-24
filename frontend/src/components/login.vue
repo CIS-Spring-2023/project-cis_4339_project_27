@@ -31,26 +31,51 @@ export default {
     },
     data() {
         return {
+            userData: [
+                {
+                    username: 'admin',
+                    password: 'admin',
+                    role:'editor',
+                    orgs: '1'
+                },
+                {
+                    username: 'testuser',
+                    password: 'testuser',
+                    role: '',
+                    orgs: '1'
+                }
+            ],
             username: '',
             password: ''
         }
     },
     methods: {
         async loginSubmit() {
-            axios.post(`${apiURL}/users`, { username: this.$data.username, password: this.$data.password })
-                .then((res) => {
-                    if (res.data) {
-                        sessionStorage.setItem('user', JSON.stringify(res.data))
-                        this.$router.push({ name: 'Home' }).then(location.reload())
-                        console.log(res)
-                    }
-                }) .catch ((err) => {
-                    if (err.response.status === 400) {
-                        alert(err.response.data.error);
-                        this.username = '';
-                        this.password = '';
-                    }
-                })
+            if(this.username === 'admin' && this.password === 'admin') {
+                sessionStorage.setItem('user', JSON.stringify(this.userData[0]));
+                this.$router.push({ name: 'Home'}).then(location.reload())
+            } else if (this.username === 'testuser' && this.password === 'testuser') {
+                sessionStorage.setItem('user', JSON.stringify(this.userData[1]));
+                this.$router.push({ name: 'Home'}).then(location.reload())
+            } else {
+                alert('Invalid Login');
+                this.username =''
+                this.password = ''
+            }
+            // axios.post(`${apiURL}/users`, { username: this.$data.username, password: this.$data.password })
+            //     .then((res) => {
+            //         if (res.data) {
+            //             sessionStorage.setItem('user', JSON.stringify(res.data))
+            //             this.$router.push({ name: 'Home' }).then(location.reload())
+            //             console.log(res)
+            //         }
+            //     }) .catch ((err) => {
+            //         if (err.response.status === 400) {
+            //             alert(err.response.data.error);
+            //             this.username = '';
+            //             this.password = '';
+            //         }
+            //     })
         }
     },
     mounted() {
