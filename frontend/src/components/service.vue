@@ -17,13 +17,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(service, index) in servicesData" :key="service._id">
-          <td>{{ service.serviceName }}</td>
+        <tr v-for="(service, index) in servicesData" :key="id">
+          <td>{{ service.name }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td>
-            <button @click.prevent="updateItem(service._id)" class="btn btn-secondary mx-2">Edit</button>
-            <button @click.prevent="deleteItem(service._id)" class="btn btn-danger mx-2">Delete</button>
+            <button @click.prevent="updateItem(service.id)" class="btn btn-secondary mx-2">Edit</button>
           </td>
         </tr>
       </tbody>
@@ -43,11 +42,31 @@ const apiURL = import.meta.env.VITE_ROOT_API
 export default {
   data() {
     return {
-      servicesData: [],
+      servicesData: [
+        {
+          id: 1,
+          name: 'Free Dental',
+          description: 'Free dental checkup for everyone',
+          status: 'active'
+        },
+        {
+          id: 2,
+          name: 'Free Checkup',
+          description: 'Free general checkup for everyone',
+          status: 'active'
+        },
+        {
+          id: 3,
+          name: 'Blood Letting',
+          description: 'Donate blood and get rewarded',
+          status: 'active'
+        },
+      ],
       newItem: {
         id: null,
         service: '',
-        description: ''
+        description: '',
+        status: ''
       }
     }
   },
@@ -57,18 +76,18 @@ export default {
     })
   },
   methods: {
-    deleteItem(id) {
-      let deleteURL = `${apiURL}/services/${id}`;
-      //let indexofArrayItem = this.servicesData.findIndex(i => i._id === id);
+    // deleteItem(id) {
+    //   let deleteURL = `${apiURL}/services/${id}`;
+    //   //let indexofArrayItem = this.servicesData.findIndex(i => i._id === id);
 
-      if(window.confirm("Do you really want to delete?")) {
-        axios.delete(deleteURL).then((res) => {
-          location.reload();
-        }).catch(error => {
-          console.log(error)
-        })
-      }  
-    },
+    //   if(window.confirm("Do you really want to delete?")) {
+    //     axios.delete(deleteURL).then((res) => {
+    //       location.reload();
+    //     }).catch(error => {
+    //       console.log(error)
+    //     })
+    //   }  
+    // },
     updateItem(serviceID) {
       this.$router.push({ name: 'updateservice', params: { id: serviceID } })
     }
