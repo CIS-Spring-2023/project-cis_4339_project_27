@@ -128,9 +128,6 @@ export default {
     //   }  
     // },
     addItem() {
-      const correctForm = this.v$.$validate();
-
-      if (correctForm) {
         this.newItem.id = this.servicesData.length + 1;
         this.servicesData.push(this.newItem);
         this.newItem = {
@@ -138,7 +135,6 @@ export default {
           description: '',
           status: ''
         }
-      }
     },
     updateItem(serviceID) {
       this.$router.push({ name: 'updateservice', params: { id: serviceID } })
