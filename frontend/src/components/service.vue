@@ -22,7 +22,7 @@
           <td>
             <button @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
             <button v-if="service.status ==='inactive'" @click.prevent="serviceStatus(service.id)" class="btn btn-success mx-2">Activate</button>
-            <button v-else @click.prevent="serviceStatus(service.id)" class="btn btn-success mx-2">Deactivate</button>
+            <button v-else @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
           </td>
         </tr>
       </tbody>
@@ -66,7 +66,7 @@
       </div>
       <div>
         <div></div>
-        <button class="btn btn-danger mx-2" type="submit">New Service</button>
+        <button class="btn btn-danger mx-2" type="submit">Add Service</button>
         <button class="btn btn-success" v-on:click ="sendUpdatedItem" type="button">Update</button>
       </div>
     </form>
