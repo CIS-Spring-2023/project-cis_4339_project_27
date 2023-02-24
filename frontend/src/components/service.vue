@@ -15,12 +15,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(service, index) in servicesData" :key="id">
-          <td>{{ service.service }}</td>
+        <tr v-for="(service, index) in servicesData" :key="index">
+          <td>{{ service.name }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td>
             <button @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
+            <button v-if="service.status ==='inactive'" @click.prevent="serviceStatus(service.id)" class="btn btn-success mx-2">Activate</button>
+            <button v-else @click.prevent="serviceStatus(service.id)" class="btn btn-success mx-2">Deactivate</button>
           </td>
         </tr>
       </tbody>
@@ -36,7 +38,7 @@
           <span style="color: #ff0000">*</span>
           <input type="text"
             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            v-model="newItem.service" required/>
+            v-model="name" required />
         </label>
       </div>
       <!-- form field -->
@@ -46,7 +48,7 @@
           <span style="color: #ff0000">*</span>
           <input type="text"
             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            v-model="newItem.status" required/>
+            v-model="status" required />
         </label>
       </div>
 
@@ -57,13 +59,15 @@
       <div class="flex flex-col">
         <label class="block">
           <span class="text-gray-700">Description</span>
-          <textarea v-model="newItem.description"
+          <textarea v-model="description"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             rows="2"></textarea>
         </label>
       </div>
       <div>
+        <div></div>
         <button class="btn btn-danger mx-2" type="submit">New Service</button>
+        <button class="btn btn-success" v-on:click ="sendUpdatedItem" type="button">Update</button>
       </div>
     </form>
   </div>
@@ -81,38 +85,19 @@ export default {
   },
   data() {
     return {
-      servicesData: [
-        {
-          id: 1,
-          service: 'Free Dental',
-          description: 'Free dental checkup for everyone',
-          status: 'active'
-        },
-        {
-          id: 2,
-          service: 'Free Checkup',
-          description: 'Free general checkup for everyone',
-          status: 'active'
-        },
-        {
-          id: 3,
-          service: 'Blood Letting',
-          description: 'Donate blood and get rewarded',
-          status: 'active'
-        },
-      ],
-      newItem: {
-        id: '',
-        service: '',
-        description: '',
-        status: ''
-      }
+      listOfServices: [],
+      id: '',
+      servicesData: [],
+      name: '',
+      status: '',
+      description: ''
     }
   },
   created() {
-    axios.get(`${apiURL}/services`).then((res) => {
-      this.servicesData = res.data;
-    })
+    this.servicesData = JSON.parse(localStorage.getItem('services') || '[]')
+    // axios.get(`${apiURL}/services`).then((res) => {
+    //   this.servicesData = res.data;
+    // })
   },
   methods: {
     // deleteItem(id) {
@@ -128,16 +113,53 @@ export default {
     //   }  
     // },
     addItem() {
-        this.newItem.id = this.servicesData.length + 1;
-        this.servicesData.push(this.newItem);
-        this.newItem = {
-          service: '',
-          description: '',
-          status: ''
-        }
+      this.servicesData.push({id:this.servicesData.length, name: this.name, status: this.status, description: this.description })
+      localStorage.setItem('services', JSON.stringify(this.servicesData))
+      this.name =''
+      this.status =''
+      this.description=''
     },
     updateItem(serviceID) {
-      this.$router.push({ name: 'updateservice', params: { id: serviceID } })
+
+      if (localStorage.getItem('services') == null) {
+        this.listOfServices = [];
+      } else {
+        this.listOfServices = JSON.parse(localStorage.getItem('services'))
+      }
+      // this.$router.push({ name: 'updateservice', params: { id: serviceID } })
+      this.name = this.listOfServices[serviceID].name
+      this.status = this.listOfServices[serviceID].status
+      this.description = this.listOfServices[serviceID].description
+      this.id = this.listOfServices[serviceID].id
+      console.log(this.id)
+    },
+    sendUpdatedItem() {
+      this.listOfServices.id = this.id
+      this.listOfServices[this.id].name = this.name
+      this.listOfServices[this.id].status = this.status
+      this.listOfServices[this.id].description = this.description
+
+      console.log(this.listOfServices)
+
+      localStorage.setItem('services', JSON.stringify(this.listOfServices))
+      location.reload()
+    },
+    serviceStatus(serviceID) {
+      if (localStorage.getItem('services') == null) {
+        this.listOfServices = [];
+      } else {
+        this.listOfServices = JSON.parse(localStorage.getItem('services'))
+      }
+      // this.$router.push({ name: 'updateservice', params: { id: serviceID } })
+      console.log(this.listOfServices)
+      if (this.listOfServices[serviceID].status === 'active') {
+        this.listOfServices[serviceID].status = 'inactive'
+      } else {
+        this.listOfServices[serviceID].status = 'active'
+      }
+
+      localStorage.setItem('services', JSON.stringify(this.listOfServices))
+      location.reload()
     }
   },
   validations() {
@@ -167,6 +189,15 @@ export default {
 }
 
 .btn.btn-danger.mx-2:hover {
+  opacity: 0.5;
+}
+
+.btn.btn-success{
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn.btn-success:hover{
   opacity: 0.5;
 }
 </style>
