@@ -21,7 +21,8 @@
           <td>{{ service.status }}</td>
           <td>
             <button @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
-            <button v-if="service.status ==='inactive'" @click.prevent="serviceStatus(service.id)" class="btn btn-success mx-2">Activate</button>
+            <button v-if="service.status === 'inactive'" @click.prevent="serviceStatus(service.id)"
+              class="btn btn-success mx-2">Activate</button>
             <button v-else @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
           </td>
         </tr>
@@ -38,7 +39,7 @@
           <span style="color: #ff0000">*</span>
           <input type="text"
             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            v-model="name" required />
+            v-model="name" required/>
         </label>
       </div>
       <!-- form field -->
@@ -67,7 +68,7 @@
       <div>
         <div></div>
         <button class="btn btn-danger mx-2" type="submit">Add Service</button>
-        <button class="btn btn-success" v-on:click ="sendUpdatedItem" type="button">Update</button>
+        <button class="btn btn-success" v-on:click="sendUpdatedItem" type="button">Update</button>
       </div>
     </form>
   </div>
@@ -113,11 +114,11 @@ export default {
     //   }  
     // },
     addItem() {
-      this.servicesData.push({id:this.servicesData.length, name: this.name, status: this.status, description: this.description })
+      this.servicesData.push({ id: this.servicesData.length, name: this.name, status: this.status, description: this.description })
       localStorage.setItem('services', JSON.stringify(this.servicesData))
-      this.name =''
-      this.status =''
-      this.description=''
+      this.name = ''
+      this.status = ''
+      this.description = ''
     },
     updateItem(serviceID) {
 
@@ -162,12 +163,12 @@ export default {
       location.reload()
     }
   },
-  validations() {
-    return {
-      newItem: {
-        service: { required },
-        status: { required }
-      }
+  validations: {
+    name: {
+      required
+    },
+    status: {
+      required
     }
   }
 }
@@ -192,12 +193,12 @@ export default {
   opacity: 0.5;
 }
 
-.btn.btn-success{
+.btn.btn-success {
   background-color: #28a745;
   border-color: #28a745;
 }
 
-.btn.btn-success:hover{
+.btn.btn-success:hover {
   opacity: 0.5;
 }
 </style>
