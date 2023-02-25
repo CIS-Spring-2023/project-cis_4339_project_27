@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       // rename events arrays for added clarity
+      user: [],
       eventsAll: [],
       eventsSelected: [],
       eventsRegistered: [],
@@ -50,6 +51,9 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0)
+    if (sessionStorage.getItem('user')) {
+      this.user = JSON.parse(sessionStorage.getItem('user'));
+    }
   },
   methods: {
     // better formattedDate function
@@ -352,6 +356,7 @@ export default {
         >
           <div class="flex justify-between mt-10 mr-20">
             <button
+              v-if="user.role === 'editor'"
               @click="updateClient"
               type="submit"
               class="bg-green-700 text-white rounded"
@@ -361,6 +366,7 @@ export default {
           </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
+              v-if="user.role === 'editor'"
               @click="deregisterClient"
               type="submit"
               class="bg-red-700 text-white rounded"
@@ -426,6 +432,7 @@ export default {
             />
             <div class="flex justify-between">
               <button
+                v-if="user.role === 'editor'"
                 @click="addToEvent"
                 type="submit"
                 class="mt-5 bg-red-700 text-white rounded"
