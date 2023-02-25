@@ -1,19 +1,24 @@
 <template>
     <main>
 
-        <div class="login">
-            <form class="form-thing" @submit.prevent="loginSubmit">
-                <h1 class="text-2xl font-bold">Login Page</h1>
-                <div class="form-input">
-                    <input class="input-group" type="text" name="username" v-model="username" placeholder="Username" />
-                </div>
-                <div class="form-input">
-                    <input class="input-group" type="password" name="password" v-model="password" placeholder="Password" />
-                </div>
-                <div>
-                    <button class="btn-grp" type="submit">Login</button>
-                </div>
-            </form>
+        <div class="row justify-content-center pt-3">
+            <div class="col-md-4">
+                <h1 class="text-center pb-3 font-weight-bold text-danger fs-3">Login Page</h1>
+                <form @submit.prevent="loginSubmit">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input class="form-control" type="text" name="username" v-model="username" placeholder="Username" />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" type="password" name="password" v-model="password"
+                            placeholder="Password" />
+                    </div>
+                    <div>
+                        <button class="btn-grp" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </main>
@@ -37,20 +42,24 @@ export default {
     },
     methods: {
         async loginSubmit() {
-            axios.post(`${apiURL}/users`, { username: this.$data.username, password: this.$data.password })
-                .then((res) => {
-                    if (res.data) {
-                        sessionStorage.setItem('user', JSON.stringify(res.data))
-                        this.$router.push({ name: 'Home' }).then(location.reload())
-                        console.log(res)
-                    }
-                }) .catch ((err) => {
-                    if (err.response.status === 400) {
-                        alert(err.response.data.error);
-                        this.username = '';
-                        this.password = '';
-                    }
-                })
+            const noMissingField = await this.v$.$validate();
+
+            if (noMissingField) {
+                axios.post(`${apiURL}/users`, { username: this.$data.username, password: this.$data.password })
+                    .then((res) => {
+                        if (res.data) {
+                            sessionStorage.setItem('user', JSON.stringify(res.data))
+                            this.$router.push({ name: 'Home' }).then(location.reload())
+                            console.log(res)
+                        }
+                    }).catch((err) => {
+                        if (err.response.status === 400) {
+                            alert(err.response.data.error);
+                            this.username = '';
+                            this.password = '';
+                        }
+                    })
+            }
         }
     },
     mounted() {
@@ -61,8 +70,8 @@ export default {
     },
     validations() {
         return {
-            username: {required},
-            password: {required}
+            username: { required },
+            password: { required }
         }
     }
 }
