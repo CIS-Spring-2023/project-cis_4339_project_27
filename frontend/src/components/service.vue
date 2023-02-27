@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(service, index) in servicesData" :key="index">
+        <tr v-for="service in servicesData" :key="service.id">
           <td>{{ service.name }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
