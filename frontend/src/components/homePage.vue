@@ -12,20 +12,34 @@ export default {
   },
   data() {
     return {
+      clientData: [],
+      numOfClientsByZipCode: [],
       recentEvents: [],
       labels: [],
       chartData: [],
       loading: false,
       error: null,
-      pielabels: ['77001', '73301', '90001', '02115', '10000'],
+      pielabels: ['77001', '73301', '10000', '06104', '94304'],
       pieData: [5, 3, 1, 1, 1]
     }
   },
   mounted() {
     this.getAttendanceData()
+    this.getZipCode()
   },
   methods: {
     // Get attendance from API
+    async getZipCode() {
+      try {
+        const response = await axios.get(`${apiURL}/clients`)
+        this.clientData = response.data.map((item) => item.address.zip)
+        
+
+      } catch (err) {
+        console.log(err.message)
+      }
+
+    },
     async getAttendanceData() {
       try {
         this.error = null
@@ -36,6 +50,7 @@ export default {
           (item) => `${item.name} (${this.formattedDate(item.date)})`
         )
         this.chartData = response.data.map((item) => item.attendees.length)
+        console.log(this.recentEvents)
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
@@ -60,7 +75,7 @@ export default {
       this.loading = false
     },
     //Get clients by zipcode API
-    
+
     // Formatting date for barchart
     formattedDate(datetimeDB) {
       const dt = DateTime.fromISO(datetimeDB, {
@@ -81,15 +96,11 @@ export default {
 <template>
   <main>
     <div>
-      <h1
-        class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10"
-      >
+      <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">
         Welcome
       </h1>
       <br />
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
-      >
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
         <!--Table section to show event detail and attendees-->
         <div class="ml-10"></div>
         <div class="flex flex-col col-span-2">
@@ -102,11 +113,7 @@ export default {
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-300">
-              <tr
-                @click="editEvent(event._id)"
-                v-for="event in recentEvents"
-                :key="event._id"
-              >
+              <tr @click="editEvent(event._id)" v-for="event in recentEvents" :key="event._id">
                 <td class="p-2 text-left">{{ event.name }}</td>
                 <td class="p-2 text-left">{{ formattedDate(event.date) }}</td>
                 <td class="p-2 text-left">{{ event.attendees.length }}</td>
@@ -116,17 +123,11 @@ export default {
 
           <!--Attendace chart section-->
           <div>
-            <AttendanceChart
-              v-if="!loading && !error"
-              :label="labels"
-              :chart-data="chartData"
-            ></AttendanceChart>
+            <AttendanceChart v-if="!loading && !error" :label="labels" :chart-data="chartData"></AttendanceChart>
 
             <!-- Start of loading animation -->
             <div class="mt-40" v-if="loading">
-              <p
-                class="text-6xl font-bold text-center text-gray-500 animate-pulse"
-              >
+              <p class="text-6xl font-bold text-center text-gray-500 animate-pulse">
                 Loading...
               </p>
             </div>
@@ -154,9 +155,7 @@ export default {
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-300">
-              <tr
-              v-for="client, i in pielabels"
-              >
+              <tr v-for="client, i in pielabels">
                 <td class="p-2 text-left">{{ client }}</td>
                 <td class="p-2 text-left">{{ this.pieData[i] }}</td>
               </tr>
@@ -164,9 +163,7 @@ export default {
           </table>
           <!--Client by zip chart section-->
           <div>
-            <ClientChart
-              :label="pielabels"
-              :chart-data="pieData">
+            <ClientChart :label="pielabels" :chart-data="pieData">
             </ClientChart>
           </div>
         </div>
