@@ -1,12 +1,21 @@
 <script>
+import { BTable } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
+import { userLoggedIn } from "@/stores/userLoggedIn";
 const apiURL = import.meta.env.VITE_ROOT_API
+
 
 export default {
   name: 'App',
+  setup() {
+    const user = userLoggedIn();
+    return { user };
+  },
   data() {
     return {
-      orgName: 'Dataplatform'
+      orgName: 'Dataplatform',
     }
   },
   created() {
@@ -16,6 +25,7 @@ export default {
   }
 }
 </script>
+
 <template>
   <main class="flex flex-row">
     <div id="_container" class="h-screen">
@@ -25,54 +35,52 @@ export default {
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
+            <!--Add v-if component to login route link to check if user is logged in
+              and change login route to logout-->
+            <li>
+              <router-link to="/login" v-if="!user.isLoggedIn">
+                <span style="position: relative; top: 6px" class="material-icons">login</span>
+                Login
+              </router-link>
+              <router-link to="/login" v-if="user.isLoggedIn" v-on:click="user.logout()">
+                <span style="position: relative; top: 6px" class="material-icons">logout</span>
+                Logout
+              </router-link>
+            </li>
             <li>
               <router-link to="/">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >dashboard</span
-                >
+                <span style="position: relative; top: 6px" class="material-icons">dashboard</span>
                 Dashboard
               </router-link>
             </li>
             <li>
-              <router-link to="/intakeform">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >people</span
-                >
-                Client Intake Form
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/eventform">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >event</span
-                >
-                Create Event
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/findclient">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >search</span
-                >
+              <router-link to="/findclient" v-if="user.isLoggedIn">
+                <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Client
               </router-link>
             </li>
             <li>
-              <router-link to="/findevents">
-                <span
-                  style="position: relative; top: 6px"
-                  class="material-icons"
-                  >search</span
-                >
+              <router-link to="/findevents" v-if="user.isLoggedIn">
+                <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Event
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/service" v-if="user.isLoggedIn">
+                <span style="position: relative; top: 6px" class="material-icons">list</span>
+                Services
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/intakeform" v-if="user.isLoggedIn && user.role === 'editor'">
+                <span style="position: relative; top: 6px" class="material-icons">people</span>
+                Client Intake Form
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/eventform" v-if="user.isLoggedIn && user.role === 'editor'">
+                <span style="position: relative; top: 6px" class="material-icons">event</span>
+                Create Event
               </router-link>
             </li>
           </ul>
@@ -80,10 +88,8 @@ export default {
       </header>
     </div>
     <div class="grow w-4/5">
-      <section
-        class="justify-end items-center h-24 flex"
-        style="background: linear-gradient(250deg, #c8102e 70%, #efecec 50.6%)"
-      >
+      <section class="justify-end items-center h-24 flex"
+        style="background: linear-gradient(250deg, #c8102e 70%, #efecec 50.6%)">
         <h1 class="mr-20 text-3xl text-white">{{ this.orgName }}</h1>
       </section>
       <div>
@@ -92,6 +98,7 @@ export default {
     </div>
   </main>
 </template>
+
 <style>
 #_container {
   background-color: #c8102e;
