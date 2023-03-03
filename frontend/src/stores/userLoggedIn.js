@@ -23,8 +23,10 @@ export const userLoggedIn = defineStore({
                     role: response.role
                 })
                 this.$router.push({ name: 'Home'})
-            } catch (error){
-                console.log(error);
+            } catch(error) {
+                alert(error)
+                this.username = '',
+                this.password = '';
             }
         },
         logout () {
@@ -43,7 +45,7 @@ export const userLoggedIn = defineStore({
 });
 
 function apiLogin(u, p) {
-    if(u === 'admin' && p === 'admin') return Promise.resolve({isAllowed: true, name: 'admin', role:'editor' })
-    if(u === 'testuser' && p === 'testuser') return Promise.resolve({isAllowed: true, name: 'testuser', role:''})
-    return Promise.reject(new error('Invalid credentials'))
+    if(u === 'admin' && p === 'admin') return Promise.resolve({isAllowed: true, name: 'admin', role:'editor' });
+    if(u === 'testuser' && p === 'testuser') return Promise.resolve({isAllowed: true, name: 'testuser', role:''});
+    return Promise.reject(new Error("Invalid credentials"));
 }
