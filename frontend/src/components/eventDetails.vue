@@ -3,12 +3,17 @@ import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import axios from 'axios'
 import { DateTime } from 'luxon'
+import { userLoggedIn } from '@/store/userLoggedIn'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   props: ['id'],
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) }
+    const store = userLoggedIn();
+    return { 
+      v$: useVuelidate({ $autoDirty: true }),
+      store
+    }
   },
   data() {
     return {
@@ -286,6 +291,7 @@ export default {
         >
           <div class="flex justify-between mt-10 mr-20">
             <button
+              v-if="store.role === 'editor'"
               @click="handleEventUpdate"
               type="submit"
               class="bg-green-700 text-white rounded"
@@ -295,6 +301,7 @@ export default {
           </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
+              v-if="store.role === 'editor'"
               @click="eventDelete"
               type="submit"
               class="bg-red-700 text-white rounded"
