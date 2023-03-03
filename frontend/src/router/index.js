@@ -18,19 +18,7 @@ const routes = [
     path: '/intakeform',
     name: 'intakeform',
     props: true,
-    component: () => import('../components/intakeForm.vue'),
-    beforeEnter: (to, from, next) => {
-      let user = sessionStorage.getItem('user');
-
-      let json = JSON.parse(user);
-
-      if (json.role === 'editor') {
-        next()
-      } else {
-        alert(`You don't have the role to access this. Redirecting to Dashboard`);
-        next({ path: '/' })
-      }
-    }
+    component: () => import('../components/intakeForm.vue')
   },
   {
     path: '/findclient',
@@ -47,17 +35,6 @@ const routes = [
     path: '/eventform',
     name: 'eventform',
     component: () => import('../components/eventForm.vue'),
-    beforeEnter: (to, from, next) => {
-      let user = sessionStorage.getItem('user');
-      let json = JSON.parse(user);
-
-      if (json.role === 'editor') {
-        next()
-      } else {
-        alert(`You don't have the role to access this. Redirecting to Dashboard`);
-        next({ path: '/' })
-      }
-    }
   },
   {
     path: '/findevents',
@@ -73,19 +50,7 @@ const routes = [
   {
     path: '/service',
     name: 'service',
-    component: () => import('../components/service.vue'),
-    beforeEnter: (to, from, next) => {
-      let user = sessionStorage.getItem('user');
-      let json = JSON.parse(user);
-
-      if (json.role === 'editor') {
-        next()
-      } else {
-        alert(`You don't have the role to access this. Redirecting to Dashboard`);
-        next({ path: '/' })
-      }
-
-    }
+    component: () => import('../components/service.vue')
   },
   {
     path: '/createservice',

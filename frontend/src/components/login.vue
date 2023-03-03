@@ -2,7 +2,7 @@
     <main>
 
         <div class="login">
-            <form class="form-thing" @submit.prevent="loginSubmit">
+            <form class="form-thing" @submit.prevent="store.login(username, password)">
                 <h1 class="text-2xl font-bold">Login Page</h1>
                 <div class="form-input">
                     <input class="input-group" type="text" name="username" v-model="username" placeholder="Username" />
@@ -22,46 +22,24 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
+import { userLoggedIn } from '@/stores/userLoggedIn'
 const apiURL = import.meta.env.VITE_ROOT_API
 import axios from 'axios'
 
 export default {
+
     setup() {
-        return { v$: useVuelidate({ $autoDirty: true }) }
+        const store = userLoggedIn()
+        return {
+            store
+        }
     },
     data() {
         return {
-            userData: [
-                {
-                    username: 'admin',
-                    password: 'admin',
-                    role:'editor',
-                    orgs: '1'
-                },
-                {
-                    username: 'testuser',
-                    password: 'testuser',
-                    role: '',
-                    orgs: '1'
-                }
-            ],
             username: '',
             password: ''
         }
     },
-    methods: {
-        async loginSubmit() {
-            if(this.username === 'admin' && this.password === 'admin') {
-                sessionStorage.setItem('user', JSON.stringify(this.userData[0]));
-                this.$router.push({ name: 'Home'}).then(location.reload())
-            } else if (this.username === 'testuser' && this.password === 'testuser') {
-                sessionStorage.setItem('user', JSON.stringify(this.userData[1]));
-                this.$router.push({ name: 'Home'}).then(location.reload())
-            } else {
-                alert('Invalid Login');
-                this.username =''
-                this.password = ''
-            }
             // axios.post(`${apiURL}/users`, { username: this.$data.username, password: this.$data.password })
             //     .then((res) => {
             //         if (res.data) {
@@ -76,14 +54,6 @@ export default {
             //             this.password = '';
             //         }
             //     })
-        }
-    },
-    mounted() {
-        let user = sessionStorage.getItem('user');
-        if (user) {
-            this.$router.push({ name: 'Home' });
-        }
-    },
     validations() {
         return {
             username: {required},
