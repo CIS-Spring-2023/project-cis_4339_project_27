@@ -37,7 +37,9 @@ export const userLoggedIn = defineStore({
             }
         }
     },
-    persist: true
+    persist: {
+        storage: sessionStorage
+    }
 });
 
 function apiLogin(u, p) {
