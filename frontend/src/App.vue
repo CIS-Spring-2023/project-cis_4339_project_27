@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
+import { userLoggedIn } from '@/store/userLoggedIn'
 
 
 export default {
@@ -18,20 +19,10 @@ export default {
       this.orgName = res.data.name
     })
   },
-  computed: {
-    isLoggedIn() {
-      return !!window.sessionStorage.getItem('user')
-    }
-  },
-  methods: {
-    checkIfLogin() {
-      return sessionStorage.getItem('user')
-    },
-    logOut() {
-      if (window.confirm("Do you want to logout")) {
-        sessionStorage.clear();
-        this.$router.push({ name: 'login' }).then(() => { this.$router.go() })
-      }
+  setup() {
+    const user = userLoggedIn();
+    return {
+      user
     }
   }
 }
@@ -49,11 +40,11 @@ export default {
             <!--Add v-if component to login route link to check if user is logged in
               and change login route to logout-->
             <li>
-              <router-link to="/login" v-if="!checkIfLogin()">
+              <router-link to="/login" v-if="!user.isLoggedIn">
                 <span style="position: relative; top: 6px" class="material-icons">login</span>
                 Login
               </router-link>
-              <router-link to="/login" v-if="checkIfLogin()" v-on:click="logOut()">
+              <router-link to="/login" v-if="user.isLoggedIn" v-on:click="user.logout()">
                 <span style="position: relative; top: 6px" class="material-icons">logout</span>
                 Logout
               </router-link>
@@ -65,31 +56,31 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link to="/findclient">
+              <router-link to="/findclient" v-if="user.isLoggedIn">
                 <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Client
               </router-link>
             </li>
             <li>
-              <router-link to="/findevents">
+              <router-link to="/findevents" v-if="user.isLoggedIn">
                 <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Event
               </router-link>
             </li>
             <li>
-              <router-link to="/intakeform" v-if="isLoggedIn">
+              <router-link to="/intakeform" v-if="user.isLoggedIn && user.role ==='editor'">
                 <span style="position: relative; top: 6px" class="material-icons">people</span>
                 Client Intake Form
               </router-link>
             </li>
             <li>
-              <router-link to="/eventform" v-if="isLoggedIn">
+              <router-link to="/eventform" v-if="user.isLoggedIn && user.role ==='editor'">
                 <span style="position: relative; top: 6px" class="material-icons">event</span>
                 Create Event
               </router-link>
             </li>
             <li>
-              <router-link to="/service" v-if="isLoggedIn">
+              <router-link to="/service" v-if="user.isLoggedIn && user.role ==='editor'">
                 <span style="position: relative; top: 6px" class="material-icons">list</span>
                 Services
               </router-link>
