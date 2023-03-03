@@ -66,6 +66,12 @@ export default {
               </router-link>
             </li>
             <li>
+              <router-link to="/service" v-if="user.isLoggedIn">
+                <span style="position: relative; top: 6px" class="material-icons">list</span>
+                Services
+              </router-link>
+            </li>
+            <li>
               <router-link to="/intakeform" v-if="user.isLoggedIn && user.role === 'editor'">
                 <span style="position: relative; top: 6px" class="material-icons">people</span>
                 Client Intake Form
@@ -75,12 +81,6 @@ export default {
               <router-link to="/eventform" v-if="user.isLoggedIn && user.role === 'editor'">
                 <span style="position: relative; top: 6px" class="material-icons">event</span>
                 Create Event
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/service" v-if="user.isLoggedIn && user.role === 'editor'">
-                <span style="position: relative; top: 6px" class="material-icons">list</span>
-                Services
               </router-link>
             </li>
           </ul>

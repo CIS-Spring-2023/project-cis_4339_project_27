@@ -20,10 +20,10 @@
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td>
-            <button @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
-            <button v-if="service.status === 'inactive'" @click.prevent="serviceStatus(service.id)"
+            <button v-if="user.role === 'editor'" @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
+            <button v-if="service.status === 'inactive' && user.role === 'editor'" @click.prevent="serviceStatus(service.id)"
               class="btn btn-success mx-2">Activate</button>
-            <button v-else @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
+            <button v-if="service.status === 'active' && user.role === 'editor'" @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
           </td>
         </tr>
       </tbody>
@@ -31,7 +31,7 @@
   </div>
 
   <!--Create new service form for front end-->
-  <div class="row justify-content-center">
+  <div v-if="user.role === 'editor'" class="row justify-content-center">
     <form @submit.prevent="addItem">
       <div class="flex flex-col">
         <label class="block">
@@ -76,8 +76,8 @@
       </div>
       <div>
         <div></div>
-        <button class="btn btn-danger mx-2" type="submit">Add Service</button>
-        <button class="btn btn-success" v-on:click="sendUpdatedItem" type="button">Update</button>
+        <button class="btn btn-danger mx-2" v-if="user.role === 'editor'" type="submit">Add Service</button>
+        <button class="btn btn-success" v-if="user.role === 'editor'" v-on:click="sendUpdatedItem" type="button">Update</button>
       </div>
     </form>
   </div>
@@ -87,11 +87,16 @@
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import axios from 'axios'
+import { userLoggedIn } from '@/stores/userLoggedIn'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) }
+    const user = userLoggedIn();
+    return { 
+      v$: useVuelidate({ $autoDirty: true }),
+      user
+    }
   },
   data() {
     return {
