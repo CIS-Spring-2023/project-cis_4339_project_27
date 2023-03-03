@@ -4,13 +4,18 @@ import { required, email, alpha, numeric } from '@vuelidate/validators'
 import VueMultiselect from 'vue-multiselect'
 import axios from 'axios'
 import { DateTime } from 'luxon'
+import { userLoggedIn } from '@/store/userLoggedIn'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   props: ['id'],
   components: { VueMultiselect },
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) }
+    const store = userLoggedIn();
+    return { 
+      v$: useVuelidate({ $autoDirty: true }),
+      store
+    }
   },
   data() {
     return {
@@ -51,9 +56,6 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0)
-    if (sessionStorage.getItem('user')) {
-      this.user = JSON.parse(sessionStorage.getItem('user'));
-    }
   },
   methods: {
     // better formattedDate function
@@ -151,6 +153,7 @@ export default {
   }
 }
 </script>
+
 <template>
   <main>
     <h1
@@ -356,7 +359,7 @@ export default {
         >
           <div class="flex justify-between mt-10 mr-20">
             <button
-              v-if="user.role === 'editor'"
+              v-if="store.role === 'editor'"
               @click="updateClient"
               type="submit"
               class="bg-green-700 text-white rounded"
@@ -366,7 +369,7 @@ export default {
           </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
-              v-if="user.role === 'editor'"
+              v-if="store.role === 'editor'"
               @click="deregisterClient"
               type="submit"
               class="bg-red-700 text-white rounded"
