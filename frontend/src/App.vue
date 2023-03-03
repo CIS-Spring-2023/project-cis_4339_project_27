@@ -65,13 +65,13 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link to="/findclient">
+              <router-link to="/findclient" v-if="isLoggedIn">
                 <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Client
               </router-link>
             </li>
             <li>
-              <router-link to="/findevents">
+              <router-link to="/findevents" v-if="isLoggedIn">
                 <span style="position: relative; top: 6px" class="material-icons">search</span>
                 Find Event
               </router-link>

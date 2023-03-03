@@ -39,7 +39,7 @@
           <span style="color: #ff0000">*</span>
           <input type="text"
             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            v-model="name" required/>
+            v-model="name" required />
         </label>
       </div>
       <!-- form field -->
@@ -47,9 +47,18 @@
         <label class="block">
           <span class="text-gray-700">Status</span>
           <span style="color: #ff0000">*</span>
-          <input type="text"
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            v-model="status" required />
+          <div>
+          <input type="radio" id="active" name="status" value="active" v-model="status"
+            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+            />
+          <label for="active" class="ml-2">Active</label>
+        </div>
+        <div>
+          <input type="radio" id="inactive" name="status" value="inactive" v-model="status"
+            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+            />
+          <label for="active" class="ml-2">Inactive</label>
+        </div>
         </label>
       </div>
 
