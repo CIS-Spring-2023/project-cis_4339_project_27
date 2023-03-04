@@ -42,7 +42,7 @@ export default {
                 <span style="position: relative; top: 6px" class="material-icons">login</span>
                 Login
               </router-link>
-              <router-link to="/login" v-if="user.isLoggedIn" v-on:click="user.logout()">
+              <router-link to="/" v-if="user.isLoggedIn" v-on:click="user.logout()">
                 <span style="position: relative; top: 6px" class="material-icons">logout</span>
                 Logout
               </router-link>

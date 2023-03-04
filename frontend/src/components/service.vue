@@ -109,24 +109,16 @@ export default {
     }
   },
   created() {
+    /* Pulls the data from the local storage and stores then in the array so the component can use
+    the data to fill the table and show the different services. */
     this.servicesData = JSON.parse(localStorage.getItem('services') || '[]')
     // axios.get(`${apiURL}/services`).then((res) => {
     //   this.servicesData = res.data;
     // })
   },
   methods: {
-    // deleteItem(id) {
-    //   let deleteURL = `${apiURL}/services/${id}`;
-    //   //let indexofArrayItem = this.servicesData.findIndex(i => i._id === id);
-
-    //   if(window.confirm("Do you really want to delete?")) {
-    //     axios.delete(deleteURL).then((res) => {
-    //       location.reload();
-    //     }).catch(error => {
-    //       console.log(error)
-    //     })
-    //   }  
-    // },
+    /* The function takes the input values from the form and stores it in the servicesData array.
+    Then it saves the array inside the local storage of the browser to create persistent data. */
     addItem() {
       this.servicesData.push({ id: this.servicesData.length, name: this.name, status: this.status, description: this.description })
       localStorage.setItem('services', JSON.stringify(this.servicesData))
@@ -134,6 +126,9 @@ export default {
       this.status = ''
       this.description = ''
     },
+    /* Pulls the data from the local storage and saves in in the listofServices array. It then parses through the array
+    to find that data with the index equal to the value passed to it as a parameter and sends the value of that data to its
+    corresponding input box. */
     updateItem(serviceID) {
 
       if (localStorage.getItem('services') == null) {
@@ -148,6 +143,7 @@ export default {
       this.id = this.listOfServices[serviceID].id
       console.log(this.id)
     },
+    /* Updates the local storage value with the data inside list of services array. */
     sendUpdatedItem() {
       this.listOfServices.id = this.id
       this.listOfServices[this.id].name = this.name

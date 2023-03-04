@@ -1,6 +1,6 @@
 <template>
     <main>
-
+        <!-- Main form for the login component -->
         <div class="login">
             <form class="form-thing" @submit.prevent="store.login(username, password)">
                 <h1 class="text-2xl font-bold">Login Page</h1>
@@ -27,13 +27,14 @@ const apiURL = import.meta.env.VITE_ROOT_API
 import axios from 'axios'
 
 export default {
-
+    /* Access the pinia store for users */
     setup() {
         const store = userLoggedIn()
         return {
             store
         }
     },
+    /* Data that can be assigned to the different inputs in the form */
     data() {
         return {
             username: '',
