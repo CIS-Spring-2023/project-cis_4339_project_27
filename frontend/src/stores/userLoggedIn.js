@@ -36,7 +36,7 @@ export const userLoggedIn = defineStore({
                     role:'',
                     isLoggedIn: false  
                 });
-            }
+            } 
         }
     },
     persist: {

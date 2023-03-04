@@ -162,7 +162,7 @@ export default {
               </tr>
             </tbody>
           </table>
-          <!--Client by zip chart section-->
+          <!--Client by zip pie chart section-->
           <div>
             <ClientChart
               :label="pielabels"
