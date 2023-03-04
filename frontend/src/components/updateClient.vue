@@ -435,7 +435,7 @@ export default {
             />
             <div class="flex justify-between">
               <button
-                v-if="user.role === 'editor'"
+                v-if="store.role === 'editor'"
                 @click="addToEvent"
                 type="submit"
                 class="mt-5 bg-red-700 text-white rounded"

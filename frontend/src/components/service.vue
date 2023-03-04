@@ -13,7 +13,7 @@
           <th>Service Name</th>
           <th>Description</th>
           <th>Status</th>
-          <th>Action</th>
+          <th v-if="user.role === 'editor'">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -21,9 +21,9 @@
           <td>{{ service.serviceName }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
-          <td>
-            <button @click.prevent="updateItem(service._id)" class="btn btn-secondary mx-2">Edit</button>
-            <button @click.prevent="deleteItem(service._id)" class="btn btn-danger mx-2">Delete</button>
+          <td v-if="user.role === 'editor'">
+            <button  @click.prevent="updateItem(service._id)" class="btn btn-secondary mx-2">Edit</button>
+            <button  @click.prevent="deleteItem(service._id)" class="btn btn-danger mx-2">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -31,7 +31,7 @@
   </div>
   <div class="row justify-content-center">
     <div>
-      <button class="btn btn-danger mx-2" type="button"  @click="$router.push('createservice')">New Service</button>
+      <button class="btn btn-danger mx-2" v-if="user.role === 'editor'" type="button"  @click="$router.push('createservice')">New Service</button>
     </div>
   </div>
 </template>
@@ -39,8 +39,15 @@
 <script>
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
+import {userLoggedIn} from '@/store/userLoggedIn'
 
 export default {
+  setup() {
+    const user = userLoggedIn();
+    return {
+      user
+    }
+  },
   data() {
     return {
       servicesData: [],
