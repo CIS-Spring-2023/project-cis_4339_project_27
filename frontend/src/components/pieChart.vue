@@ -33,7 +33,7 @@ export default {
             options : {
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 }
             }
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-    <div class="shadow-lg rounded-lg overflow-hidden">
+    <div class="shadow-lg rounded-lg">
         <canvas id="p-10" ref="myChart"></canvas>
     </div>
 </template>

@@ -24,4 +24,9 @@ Follow instructions in frontend README for setup and running as a local instance
 
 Branch used for testing code before pushing to main branch.
 
+## Sprint 2 Documentation
+
+For sprint 2 documentation, please refer to the README file inside
+the frontend folder.
+
 
