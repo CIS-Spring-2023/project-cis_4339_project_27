@@ -32,6 +32,9 @@ export default {
       <header class="w-full">
         <section class="text-center">
           <img class="m-auto" src="@\assets\DanPersona.svg" />
+          <div v-if="user.isLoggedIn">
+            <h1>Welcome, {{ user.name }}</h1>
+          </div>
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
