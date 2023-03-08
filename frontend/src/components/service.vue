@@ -50,7 +50,7 @@
           <div>
           <input type="radio" id="active" name="status" value="active" v-model="status"
             class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-            />
+            required/>
           <label for="active" class="ml-2">Active</label>
         </div>
         <div>
@@ -76,8 +76,8 @@
       </div>
       <div>
         <div></div>
-        <button class="btn btn-danger mx-2" v-if="user.role === 'editor'" type="submit">Add Service</button>
-        <button class="btn btn-success" v-if="user.role === 'editor'" v-on:click="sendUpdatedItem" type="button">Update</button>
+        <button class="btn btn-danger mx-2" type="submit">Add Service</button>
+        <button class="btn btn-success" v-on:click="sendUpdatedItem" type="button">Update</button>
       </div>
     </form>
   </div>
@@ -211,4 +211,13 @@ export default {
 .btn.btn-success:hover {
   opacity: 0.5;
 }
+
+.btn.btn-secondary.mx-2 {
+  background-color: #6c757d;
+}
+
+.btn.btn-secondary:hover {
+  opacity: 0.5;
+}
+
 </style>
