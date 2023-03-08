@@ -11,7 +11,7 @@
           <th>Service Name</th>
           <th>Description</th>
           <th>Status</th>
-          <th>Action</th>
+          <th v-if="user.role === 'editor'">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -19,11 +19,11 @@
           <td>{{ service.name }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
-          <td>
-            <button v-if="user.role === 'editor'" @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
-            <button v-if="service.status === 'inactive' && user.role === 'editor'" @click.prevent="serviceStatus(service.id)"
+          <td v-if="user.role === 'editor'">
+            <button  @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
+            <button v-if="service.status === 'inactive'" @click.prevent="serviceStatus(service.id)"
               class="btn btn-success mx-2">Activate</button>
-            <button v-if="service.status === 'active' && user.role === 'editor'" @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
+            <button v-if="service.status === 'active' " @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
           </td>
         </tr>
       </tbody>
