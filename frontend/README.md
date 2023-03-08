@@ -40,6 +40,8 @@ If the user confirms the logout, it resets the state of the APP by changing islo
 If a user logs in, if they don't have editor privileges they can only see the dashboard, find client, and 
 find event routes.
 If a user with editor role logs in, they can see and access every route in the APP.
+Below, the image section in the navbar, a greeting should show up if the user is logged by outputing the
+user's name to notify user that they are logged in. 
 
 
 ### Service Data Layer
