@@ -22,6 +22,11 @@ export default {
     axios.get(`${apiURL}/org`).then((res) => {
       this.orgName = res.data.name
     })
+  },
+  methods: {
+    formatName(name) {
+      return name.charAt(0).toUpperCase() + name.slice(1)
+    }
   }
 }
 </script>
@@ -33,7 +38,7 @@ export default {
         <section class="text-center">
           <img class="m-auto" src="@\assets\DanPersona.svg" />
           <div v-if="user.isLoggedIn">
-            <h1>Welcome, {{ user.name }}</h1>
+            <h1>Welcome, {{ formatName(user.name) }}</h1>
           </div>
         </section>
         <nav class="mt-10">
