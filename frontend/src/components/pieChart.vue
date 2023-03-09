@@ -33,7 +33,7 @@ export default {
             options : {
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 }
             }

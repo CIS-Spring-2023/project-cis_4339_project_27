@@ -17,8 +17,8 @@ export default {
       chartData: [],
       loading: false,
       error: null,
-      pielabels: ['77001', '73301', '90001', '02115', '10000'],
-      pieData: [5, 3, 1, 1, 1]
+      pielabels: ['77584', '77001', '10000', '90001', '07705'],
+      pieData: [5, 9, 3, 2, 1]
     }
   },
   mounted() {
@@ -59,6 +59,7 @@ export default {
       }
       this.loading = false
     },
+
     //Get clients by zipcode API
     
     // Formatting date for barchart
@@ -155,10 +156,10 @@ export default {
             </thead>
             <tbody class="divide-y divide-gray-300">
               <tr
-              v-for="client, i in pielabels"
+              v-for="zips, i in pielabels"
               >
-                <td class="p-2 text-left">{{ client }}</td>
-                <td class="p-2 text-left">{{ this.pieData[i] }}</td>
+                <td class="p-2 text-left">{{ zips }}</td>
+                <td class="p-2 text-left">{{ pieData[i] }}</td>
               </tr>
             </tbody>
           </table>
