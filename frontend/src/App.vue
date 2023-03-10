@@ -24,6 +24,11 @@ export default {
     return {
       user
     }
+  },
+  methods: {
+    formatName(name) {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
   }
 }
 </script>
@@ -34,6 +39,7 @@ export default {
       <header class="w-full">
         <section class="text-center">
           <img class="m-auto" src="@\assets\DanPersona.svg" />
+          <h3>Welcome, {{  formatName() }}</h3>
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
