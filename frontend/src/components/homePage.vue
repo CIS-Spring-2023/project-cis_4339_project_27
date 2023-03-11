@@ -60,7 +60,7 @@ export default {
       this.loading = false
     },
     //Get clients by zipcode API
-    
+
     // Formatting date for barchart
     formattedDate(datetimeDB) {
       const dt = DateTime.fromISO(datetimeDB, {
