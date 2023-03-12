@@ -49,13 +49,13 @@
           <span style="color: #ff0000">*</span>
           <div>
           <input type="radio" id="active" name="status" value="active" v-model="status"
-            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+            class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
             required/>
           <label for="active" class="ml-2">Active</label>
         </div>
         <div>
           <input type="radio" id="inactive" name="status" value="inactive" v-model="status"
-            class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+            class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
             />
           <label for="active" class="ml-2">Inactive</label>
         </div>
