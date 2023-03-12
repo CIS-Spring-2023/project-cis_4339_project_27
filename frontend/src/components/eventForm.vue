@@ -147,7 +147,7 @@ export default {
                   <div v-if="service.status === 'active'">
                     <label class="inline-flex items-center">
                       <input type="checkbox" :value="index" v-model="event.services"
-                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                        class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
                         notchecked />
                       <span class="ml-2">{{ service.name }}</span>
                     </label>
