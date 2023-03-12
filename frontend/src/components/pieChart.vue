@@ -4,6 +4,7 @@ import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
 export default {
+    //Chart props to send data from parent component to piechart
     props: {
         label: {
             type: Array
@@ -13,6 +14,7 @@ export default {
         }
     },
     mounted() {
+        // Mounting the chart
         new Chart(this.$refs.myChart, {
             type: 'doughnut',
             data: {
@@ -35,7 +37,9 @@ export default {
                     legend: {
                         display: true
                     }
-                }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
             }
         }
         );
@@ -44,7 +48,7 @@ export default {
 </script>
 
 <template>
-    <div class="shadow-lg rounded-lg">
+    <div class="shadow-lg rounded-lg h-96">
         <canvas id="p-10" ref="myChart"></canvas>
     </div>
 </template>

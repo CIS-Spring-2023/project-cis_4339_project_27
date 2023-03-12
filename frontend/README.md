@@ -46,6 +46,8 @@ user's name to notify user that they are logged in.
 
 ### Service Data Layer
 
+For sprint 2, the service data layer was created using one component named service.vue. Other components
+with service in their name are components with backend connection prepared for use in sprint 3.
 All user can see all the available services but they cant add or edit them. The list of services
 are shown in the Services route in the navbar.
 When an editor user creates an event, the list of services available for that event is dynamically
