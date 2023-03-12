@@ -17,6 +17,7 @@ export default {
       chartData: [],
       loading: false,
       error: null,
+      // Piechart labels and data
       pielabels: ['77001', '73301', '90001', '02115', '10000'],
       pieData: [5, 3, 1, 1, 1]
     }
@@ -174,3 +175,5 @@ export default {
     </div>
   </main>
 </template>
+
+

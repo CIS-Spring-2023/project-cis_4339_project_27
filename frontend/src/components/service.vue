@@ -5,6 +5,7 @@
         List of Services
       </h1>
     </div>
+    <!-- Start of table to display different available services -->
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
@@ -19,8 +20,12 @@
           <td>{{ service.name }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
+          <!-- Action column 
+          Shows different options if user has role of editor -->
           <td v-if="user.role === 'editor'">
+            <!-- Update button to update service entry if user has role -->
             <button  @click.prevent="updateItem(service.id)" class="btn btn-success mx-2">Edit</button>
+            <!--Deactivate and activate buttons to change service status -->
             <button v-if="service.status === 'inactive'" @click.prevent="serviceStatus(service.id)"
               class="btn btn-success mx-2">Activate</button>
             <button v-if="service.status === 'active' " @click.prevent="serviceStatus(service.id)" class="btn btn-danger mx-2">Deactivate</button>
