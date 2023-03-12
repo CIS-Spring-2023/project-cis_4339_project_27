@@ -15,6 +15,8 @@ export default {
       recentEvents: [],
       labels: [],
       chartData: [],
+      clientsByZip: [],
+      clientNumbers: [],
       loading: false,
       error: null,
       pielabels: ['77584', '77001', '10000', '90001', '07705'],
@@ -22,7 +24,8 @@ export default {
     }
   },
   mounted() {
-    this.getAttendanceData()
+    this.getAttendanceData(),
+    this.clientByZip()
   },
   methods: {
     // Get attendance from API
@@ -61,6 +64,20 @@ export default {
     },
 
     //Get clients by zipcode API
+    async clientByZip() {
+      try {
+        const res = await axios.get(`${apiURL}/clients/zip`)
+        this.clientsByZip = res.data.map((item) => item)
+        
+        if(!this.clientsByZip.includes())
+
+        console.log(this.clientsByZip)
+        console.log(existingItem)
+        console.log(this.clientNumbers)
+      } catch(err) {
+        console.log(err)
+      }
+    },
     
     // Formatting date for barchart
     formattedDate(datetimeDB) {

@@ -20,6 +20,19 @@ router.get('/', (req, res, next) => {
     .limit(10)
 })
 
+// GET zip codes of clients
+router.get('/zip', (req, res, next) => {
+  clients
+  .find({orgs: org}, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      return res.json(data)
+
+    }
+  })
+})
+
 // GET single client by ID
 router.get('/id/:id', (req, res, next) => {
   // use findOne instead of find to not return array
