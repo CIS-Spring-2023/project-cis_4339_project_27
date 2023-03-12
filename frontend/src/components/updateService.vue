@@ -117,7 +117,7 @@ export default {
                         </button>
                     </div>
                     <div class="flex justify-between mt-10 mr-20">
-                        <button class="border border-red-700 bg-blue-700 text-white rounded" @click="$router.back()">
+                        <button type="button" class="border border-red-700 bg-blue-700 text-white rounded" @click="$router.back()">
                             Go Back
                         </button>
                     </div>

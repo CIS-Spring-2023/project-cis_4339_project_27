@@ -115,12 +115,27 @@ export default {
 
                 </div>
 
-                <div class="flex justify-between mt-10 mr-20">
-                    <button class="bg-red-700 text-white rounded" type="submit">
-                        Add New Service
-                    </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+                    <div class="flex justify-between mt-10 mr-20">
+                        <button class="bg-red-700 text-white rounded"  type="submit">
+                            Add New Service
+                        </button>
+                    </div>
                 </div>
             </form>
+
+            <div class="flex justify-between mt-10 mr-20">
+                <button class="border border-red-700 bg-blue-700 text-white rounded" @click="$router.back()">
+                        Go Back
+                </button>
+            </div>
         </div>
     </main>
 </template>
+
+
+<style>
+button:hover {
+    opacity: 0.5;
+}
+</style>
