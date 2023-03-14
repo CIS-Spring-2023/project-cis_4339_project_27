@@ -54,6 +54,9 @@ When an editor user creates an event, the list of services available for that ev
 pulled from the list of services if they're status is set to active. The editor can perform a 
 soft-delete by pressing the activate/deactivate button to change the status of the service or
 edit the service.
+The soft-delete method does not delete the data entirely but it removes it from getting used by the event form component.
+Inactive services still shows on the list of services but they can't be used as a service for creating an event.
+The data layer will render with no entry first, so you need to create at least one entry first.
 Only editor user can perform this functionalities.
 
 ### Piechart
