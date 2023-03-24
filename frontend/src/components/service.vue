@@ -23,7 +23,8 @@
           <td>{{ service.status }}</td>
           <td v-if="user.role === 'editor'">
             <button  @click.prevent="updateItem(service._id)" class="btn btn-success mx-2">Edit</button>
-            <button  @click.prevent="deleteItem(service._id)" class="btn btn-danger mx-2">Delete</button>
+            <button v-if="service.status === 'active'" @click.prevent="deleteItem(service._id)" class="btn btn-danger mx-2">Deactivate</button>
+            <button v-if="service.status === 'inactive'" @click.prevent="deleteItem(service._id)" class="btn btn-success mx-2">Activate</button>
           </td>
         </tr>
       </tbody>

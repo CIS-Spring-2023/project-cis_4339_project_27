@@ -31,7 +31,7 @@ export default {
   },
   created() {
     axios.get(`${apiURL}/services`).then((res) => {
-      this.listServices = res.data.filter(i => i.status === 'active')
+      this.listServices = res.data
     })
   },
   methods: {
@@ -132,16 +132,16 @@ export default {
             <label class="block">
               <span class="text-gray-700">Services Offered at Event</span>
               <div class="flex flex-col">
-                <VueMultiselect
-                  class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  v-model="event.services" 
-                  :options="listServices" 
-                  :custom-label="listServices.serviceName"
-                  :multiple="true" 
-                  :close-on-select="true" 
-                  placeholder="Select Services to be added" 
-                  label="serviceName"
-                  track-by="serviceName" />
+                <div v-for="service in listServices" :key="service._id">
+                  <div v-if="service.status === 'active'">
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" :value="service._id" v-model="event.services"
+                        class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                        notchecked />
+                      <span class="ml-2">{{ service.serviceName }}</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </label>
           </div>
