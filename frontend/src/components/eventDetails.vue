@@ -17,6 +17,7 @@ export default {
   },
   data() {
     return {
+      listOfServices: [],
       clientAttendees: [],
       event: {
         name: '',
@@ -35,12 +36,21 @@ export default {
     }
   },
   created() {
+    axios.get(`${apiURL}/services`).then((res) => {
+      this.listOfServices = res.data
+    })
     axios.get(`${apiURL}/events/id/${this.$route.params.id}`).then((res) => {
       this.event = res.data
       this.event.date = this.formattedDate(this.event.date)
       this.event.attendees.forEach((e) => {
         axios.get(`${apiURL}/clients/id/${e}`).then((res) => {
           this.clientAttendees.push(res.data)
+        })
+      })
+      this.event.services.forEach((e) => {
+        axios.get(`${apiURL}/services/id/${e}`).then((res) => {
+          this.listOfServices.push(res.data)
+          console.log(this.listOfServices)
         })
       })
     })
@@ -159,61 +169,24 @@ export default {
           <div></div>
           <div></div>
           <div></div>
+
           <!-- form field -->
-          <div class="flex flex-col grid-cols-3">
-            <label>Services Offered at Event</label>
-            <div>
-              <label for="familySupport" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="familySupport"
-                  value="Family Support"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Family Support</span>
-              </label>
-            </div>
-            <div>
-              <label for="adultEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="adultEducation"
-                  value="Adult Education"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Adult Education</span>
-              </label>
-            </div>
-            <div>
-              <label for="youthServices" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="youthServices"
-                  value="Youth Services Program"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Youth Services Program</span>
-              </label>
-            </div>
-            <div>
-              <label for="childhoodEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="childhoodEducation"
-                  value="Early Childhood Education"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Early Childhood Education</span>
-              </label>
-            </div>
+          <div class="flex flex-col">
+            <label class="block">
+              <span class="text-gray-700">Services Offered at Event</span>
+              <div class="flex flex-col">
+                <div v-for="service in listOfServices" :key="service._id">
+                  <div v-if="service.status === 'active'">
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" :value="service._id" v-model="event.services"
+                        class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                        notchecked />
+                      <span class="ml-2">{{ service.serviceName }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </label>
           </div>
         </div>
 
