@@ -13,6 +13,7 @@ export default {
         }
     },
     mounted() {
+        const pieBackgroundColor = this.chartData.map(() => this.getColor())
         new Chart(this.$refs.myChart, {
             type: 'doughnut',
             data: {
@@ -21,7 +22,7 @@ export default {
                     {
                         label: 'Clients by Zip',
                         data: this.chartData,
-                        backgroundColor: []
+                        backgroundColor: pieBackgroundColor
                     }
                 ]
             },
@@ -34,6 +35,12 @@ export default {
             }
         }
         );
+    },
+    methods: {
+        getColor() {
+            let channel = () => Math.random() * 255
+            return `rgba(${channel()}, ${channel()}, ${channel()}, 0.2)`
+        }
     }
 }
 </script>
