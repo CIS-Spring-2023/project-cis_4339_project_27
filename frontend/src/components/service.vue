@@ -106,6 +106,8 @@ export default {
     //       })
     //   }
     // },
+
+    // Sets the service status to active
     async activeStatus(serviceID) {
       try {
         await axios.put(`${apiURL}/services/status/${serviceID}/${this.active}`)
