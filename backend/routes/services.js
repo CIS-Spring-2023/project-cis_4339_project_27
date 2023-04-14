@@ -36,39 +36,48 @@ router.get('/id/:id', (req, res, next) => {
 
 // POST new service
 router.post('/', (req, res, next) => {
-    const newService = req.body
-    newService.orgs = [org]
-    services.create(newService, (error, data) => {
-      if (error) {
-        return next(error)
-      } else {
-        res.json(data)
-      }
-    })
+  const newService = req.body
+  newService.orgs = [org]
+  services.create(newService, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
   })
-
-  // Update service
-  router.put('/update/:id', (req, res, next) => {
-    services.findByIdAndUpdate(req.params.id, req.body, (error, data) => {
-      if (error) {
-        return next(error)
-      } else {
-        res.json(data)
-      }
-    })
+})
+// Set service to active
+router.put('/status/:id/:val', (req, res, next) => {
+  services.findByIdAndUpdate(req.params.id, {$set: {status: req.params.val}}, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
   })
-
-  // Delete service
-  router.delete('/:id', (req, res, next) => {
-    services.findOneAndDelete({_id: req.params.id}, (error, data) => {
-      if(error) {
-        return next(error)
-      } else if(!data) {
-        res.status(400).send('Service not found')
-      } else {
-        res.send('Service deleted')
-      }
-    })
+})
+// Update service
+router.put('/update/:id', (req, res, next) => {
+  services.findByIdAndUpdate(req.params.id, req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
   })
+})
 
-module.exports = router;
+// Delete service
+router.delete('/:id', (req, res, next) => {
+  services.findOneAndDelete({ _id: req.params.id }, (error, data) => {
+    if (error) {
+      return next(error)
+    } else if (!data) {
+      res.status(400).send('Service not found')
+    } else {
+      res.send('Service deleted')
+    }
+  })
+})
+
+module.exports = router
