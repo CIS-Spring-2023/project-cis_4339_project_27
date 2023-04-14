@@ -46,7 +46,7 @@ router.post('/', (req, res, next) => {
     }
   })
 })
-// Set service to active
+// change service status
 router.put('/status/:id/:val', (req, res, next) => {
   services.findByIdAndUpdate(req.params.id, {$set: {status: req.params.val}}, (error, data) => {
     if (error) {
