@@ -34,6 +34,7 @@ router.get('/zip', (req, res, next) => {
       return res.json(data)
     }
   })
+  .sort({ _id: -1 })
 })
 
 // GET single client by ID
