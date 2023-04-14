@@ -16,6 +16,7 @@ export default {
       labels: [],
       chartData: [],
       loading: false,
+      pieLoading: false,
       error: null,
       pielabels: [],
       pieData: []
@@ -65,6 +66,7 @@ export default {
     async clientByZip() {
       try {
         const res = await axios.get(`${apiURL}/clients/zip`)
+        this.pieLoading = true
         this.pielabels = res.data.map((zip) => zip._id)
         this.pieData = res.data.map((num) => num.count)
         console.log(this.pielabels)
@@ -177,6 +179,7 @@ export default {
           <!--Client by zip chart section-->
           <div>
             <ClientChart
+            v-if="pieLoading"
               :label="pielabels"
               :chart-data="pieData">
             </ClientChart>
