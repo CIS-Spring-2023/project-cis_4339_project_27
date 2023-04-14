@@ -63,9 +63,16 @@ export default {
 
     //Get clients by zipcode API
     async clientByZip() {
-      
+      try {
+        const res = await axios.get(`${apiURL}/clients/zip`)
+        this.pielabels = res.data.map((zip) => zip._id)
+        this.pieData = res.data.map((num) => num.count)
+        console.log(this.pielabels)
+      } catch(err) {
+        console.log(err)
+      }
     },
-    
+
     // Formatting date for barchart
     formattedDate(datetimeDB) {
       const dt = DateTime.fromISO(datetimeDB, {
