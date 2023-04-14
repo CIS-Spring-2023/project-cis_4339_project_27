@@ -21,16 +21,11 @@ export default {
                     {
                         label: 'Clients by Zip',
                         data: this.chartData,
-                        backgroundColor: ['blue',
-                            '#c8102e',
-                            'orange',
-                            'violet',
-                            'pink'
-                        ]
+                        backgroundColor: []
                     }
                 ]
             },
-            options : {
+            options: {
                 plugins: {
                     legend: {
                         display: true
