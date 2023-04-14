@@ -47,12 +47,6 @@ export default {
           this.clientAttendees.push(res.data)
         })
       })
-      this.event.services.forEach((e) => {
-        axios.get(`${apiURL}/services/id/${e}`).then((res) => {
-          this.listOfServices.push(res.data)
-          console.log(this.listOfServices)
-        })
-      })
     })
   },
   methods: {
