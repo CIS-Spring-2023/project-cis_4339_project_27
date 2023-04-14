@@ -17,8 +17,8 @@ export default {
       chartData: [],
       loading: false,
       error: null,
-      pielabels: ['77584', '77001', '10000', '90001', '07705'],
-      pieData: [5, 9, 3, 2, 1]
+      pielabels: [],
+      pieData: []
     }
   },
   mounted() {
