@@ -22,9 +22,26 @@
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td v-if="user.role === 'editor'">
-            <button  @click.prevent="updateItem(service._id)" class="btn btn-success mx-2">Edit</button>
-            <button v-if="service.status === 'active'" @click.prevent="deactiveStatus(service._id)" class="btn btn-danger mx-2">Deactivate</button>
-            <button v-if="service.status === 'inactive'"  @click.prevent="activeStatus(service._id)" class="btn btn-success mx-2">Activate</button>
+            <button
+              @click.prevent="updateItem(service._id)"
+              class="btn btn-success mx-2"
+            >
+              Edit
+            </button>
+            <button
+              v-if="service.status === 'active'"
+              @click.prevent="deactiveStatus(service._id)"
+              class="btn btn-danger mx-2"
+            >
+              Deactivate
+            </button>
+            <button
+              v-if="service.status === 'inactive'"
+              @click.prevent="activeStatus(service._id)"
+              class="btn btn-success mx-2"
+            >
+              Activate
+            </button>
           </td>
         </tr>
       </tbody>
@@ -32,7 +49,14 @@
   </div>
   <div class="row justify-content-center">
     <div>
-      <button class="btn btn-danger mx-2" v-if="user.role === 'editor'" type="button"  @click="$router.push('createservice')">New Service</button>
+      <button
+        class="btn btn-danger mx-2"
+        v-if="user.role === 'editor'"
+        type="button"
+        @click="$router.push('createservice')"
+      >
+        New Service
+      </button>
     </div>
   </div>
 </template>
@@ -40,11 +64,11 @@
 <script>
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
-import {userLoggedIn} from '@/store/userLoggedIn'
+import { userLoggedIn } from '@/store/userLoggedIn'
 
 export default {
   setup() {
-    const user = userLoggedIn();
+    const user = userLoggedIn()
     return {
       user
     }
@@ -63,26 +87,50 @@ export default {
   },
   created() {
     axios.get(`${apiURL}/services`).then((res) => {
-      this.servicesData = res.data;
+      this.servicesData = res.data
     })
   },
   methods: {
-    deleteItem(id) {
-      let deleteURL = `${apiURL}/services/${id}`;
-      //let indexofArrayItem = this.servicesData.findIndex(i => i._id === id);
+    // deleteItem(id) {
+    //   let deleteURL = `${apiURL}/services/${id}`
+    //   //let indexofArrayItem = this.servicesData.findIndex(i => i._id === id);
 
-      if(window.confirm("Do you really want to delete?")) {
-        axios.delete(deleteURL).then((res) => {
-          location.reload();
-        }).catch(error => {
-          console.log(error)
-        })
-      }  
+    //   if (window.confirm('Do you really want to delete?')) {
+    //     axios
+    //       .delete(deleteURL)
+    //       .then((res) => {
+    //         location.reload()
+    //       })
+    //       .catch((error) => {
+    //         console.log(error) // log errors
+    //       })
+    //   }
+    // },
+    async activeStatus(serviceID) {
+      try {
+        await axios.put(`${apiURL}/services/status/${serviceID}/${this.active}`)
+        // reloads the page
+        location.reload()
+      } catch (error) {
+        // log any errors
+        console.log(error)
+      }
+    },
+
+    async deactiveStatus(serviceID) {
+      try {
+        await axios.put(
+          `${apiURL}/services/status/${serviceID}/${this.inactive}`
+        )
+
+        location.reload()
+      } catch (error) {
+        console.log(error)
+      }
     },
     updateItem(serviceID) {
       this.$router.push({ name: 'updateservice', params: { id: serviceID } })
     }
-
   }
 }
 </script>
@@ -98,11 +146,11 @@ export default {
   padding-right: 30px;
 }
 
-.btn.btn-danger.mx-2{
+.btn.btn-danger.mx-2 {
   background-color: #c8102e;
 }
 
-.btn.btn-danger.mx-2:hover{
+.btn.btn-danger.mx-2:hover {
   opacity: 0.5;
 }
 </style>
