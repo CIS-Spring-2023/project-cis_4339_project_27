@@ -13,7 +13,9 @@ export default {
         }
     },
     mounted() {
+        //calling the function to use background color
         const pieBackgroundColor = this.chartData.map(() => this.getColor())
+        // Pie chart component
         new Chart(this.$refs.myChart, {
             type: 'doughnut',
             data: {
@@ -35,7 +37,9 @@ export default {
         }
         );
     },
+
     methods: {
+        // apply color randomized function
         getColor() {
             let channel = () => Math.random() * 255
             return `rgba(${channel()}, ${channel()}, ${channel()}, 0.8)`
