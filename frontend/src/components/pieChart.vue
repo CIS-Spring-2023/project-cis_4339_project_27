@@ -20,7 +20,6 @@ export default {
                 labels: this.label,
                 datasets: [
                     {
-                        label: 'Clients by Zip',
                         data: this.chartData,
                         backgroundColor: pieBackgroundColor
                     }
