@@ -3,7 +3,6 @@ import { BTable } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from 'axios'
-import { userLoggedIn } from "@/stores/userLoggedIn";
 const apiURL = import.meta.env.VITE_ROOT_API
 import { userLoggedIn } from '@/store/userLoggedIn'
 

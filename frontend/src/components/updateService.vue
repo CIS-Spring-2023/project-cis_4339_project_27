@@ -19,10 +19,9 @@ export default {
         }
     },
     created() {
-        this.services = JSON.parse(localStorage.getItem('services'))
-        // axios.get(`${apiURL}/services/id/${this.$route.params.id}`).then((res) => {
-        //     this.services = res.data
-        // })
+        axios.get(`${apiURL}/services/id/${this.$route.params.id}`).then((res) => {
+            this.services = res.data
+        })
     },
     methods: {
         handleServiceUpdate() {

@@ -16,8 +16,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="service in servicesData" :key="service.id">
-          <td>{{ service.name }}</td>
+        <tr v-for="service in servicesData" :key="service._id">
+          <td>{{ service.serviceName }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
           <td v-if="user.role === 'editor'">
@@ -64,7 +64,6 @@
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import axios from 'axios'
-import { userLoggedIn } from '@/stores/userLoggedIn'
 const apiURL = import.meta.env.VITE_ROOT_API
 import { userLoggedIn } from '@/store/userLoggedIn'
 
@@ -110,6 +109,9 @@ export default {
     //       })
     //   }
     // },
+    updateItem(serviceID) {
+      this.$router.push({ name: 'updateservice', params: { id: serviceID } })
+    },
 
     // Sets the service status to active
     async activeStatus(serviceID) {
@@ -133,52 +135,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    },
-    /* Pulls the data from the local storage and saves in in the listofServices array. It then parses through the array
-    to find that data with the index equal to the value passed to it as a parameter and sends the value of that data to its
-    corresponding input box. */
-    updateItem(serviceID) {
-
-      if (localStorage.getItem('services') == null) {
-        this.listOfServices = [];
-      } else {
-        this.listOfServices = JSON.parse(localStorage.getItem('services'))
-      }
-      // this.$router.push({ name: 'updateservice', params: { id: serviceID } })
-      this.name = this.listOfServices[serviceID].name
-      this.status = this.listOfServices[serviceID].status
-      this.description = this.listOfServices[serviceID].description
-      this.id = this.listOfServices[serviceID].id
-      console.log(this.id)
-    },
-    /* Updates the local storage value with the data inside list of services array. */
-    sendUpdatedItem() {
-      this.listOfServices.id = this.id
-      this.listOfServices[this.id].name = this.name
-      this.listOfServices[this.id].status = this.status
-      this.listOfServices[this.id].description = this.description
-
-      console.log(this.listOfServices)
-
-      localStorage.setItem('services', JSON.stringify(this.listOfServices))
-      location.reload()
-    },
-    serviceStatus(serviceID) {
-      if (localStorage.getItem('services') == null) {
-        this.listOfServices = [];
-      } else {
-        this.listOfServices = JSON.parse(localStorage.getItem('services'))
-      }
-      // this.$router.push({ name: 'updateservice', params: { id: serviceID } })
-      console.log(this.listOfServices)
-      if (this.listOfServices[serviceID].status === 'active') {
-        this.listOfServices[serviceID].status = 'inactive'
-      } else {
-        this.listOfServices[serviceID].status = 'active'
-      }
-
-      localStorage.setItem('services', JSON.stringify(this.listOfServices))
-      location.reload()
     }
   },
   validations: {
