@@ -67,13 +67,14 @@ export default {
 <!--Start of template for component-->
 <template>
   <main>
-    <div>
-      <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">
-        Create New Event
-      </h1>
-    </div>
-    <div class="px-10 py-20">
-      <!-- @submit.prevent stops the submit event from reloading the page-->
+  <div>
+    <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">
+      Create New Event
+    </h1>
+  </div>
+  <div class="px-10 py-20">
+    <!-- @submit.prevent stops the submit event from reloading the page
+    Form to create new events -->
       <form @submit.prevent="handleSubmitForm">
         <!-- grid container -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">

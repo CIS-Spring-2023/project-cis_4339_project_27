@@ -19,6 +19,7 @@ export default {
         }
     },
     methods: {
+        // Create new service method
         async submitServiceForm() {
             // Checks to see if there are any errors in validation
             const isFormCorrect = await this.v$.$validate()
@@ -57,13 +58,15 @@ export default {
             </h1>
         </div>
         <div class="px-10 py-20">
-            <!-- @submit.prevent stops the submit event from reloading the page-->
+            <!-- @submit.prevent stops the submit event from reloading the page
+            Start of form to create new service -->
             <form @submit.prevent="submitServiceForm">
                 <!-- grid container -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
                     <h2 class="text-2xl font-bold">Service Details</h2>
 
-                    <!-- form field -->
+                    <!-- form field
+                    Input box for service name -->
                     <div class="flex flex-col">
                         <label class="block">
                             <span class="text-gray-700">Service Name</span>
@@ -78,7 +81,8 @@ export default {
                             </span>
                         </label>
                     </div>
-                    <!-- form field -->
+                    <!-- form field 
+                    Options for service status using radio buttons-->
                     <div class="flex flex-col">
                         <label class="block">
                             <span class="text-gray-700">Status</span>
@@ -96,7 +100,8 @@ export default {
                         </label>
                     </div>
 
-                    <!-- form field -->
+                    <!-- form field 
+                    Input box for service description -->
                     <div></div>
                     <div></div>
 

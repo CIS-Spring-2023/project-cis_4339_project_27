@@ -30,6 +30,7 @@ import { required } from '@vuelidate/validators'
 import { userLoggedIn } from '@/store/userLoggedIn'
 
 export default {
+    /* Access the pinia store for users */
     setup() {
         const store = userLoggedIn();
         return { 
@@ -37,6 +38,7 @@ export default {
             store
         }
     },
+    /* Data that can be assigned to the different inputs in the form */
     data() {
         return {
             username: '',

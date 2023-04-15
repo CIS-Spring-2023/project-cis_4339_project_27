@@ -176,7 +176,7 @@ export default {
               </tr>
             </tbody>
           </table>
-          <!--Client by zip chart section-->
+          <!--Client by zip pie chart section-->
           <div>
             <ClientChart
             v-if="pieLoading"
@@ -189,3 +189,5 @@ export default {
     </div>
   </main>
 </template>
+
+
