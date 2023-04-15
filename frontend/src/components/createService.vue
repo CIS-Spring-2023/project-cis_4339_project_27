@@ -87,14 +87,16 @@ export default {
                         <label class="block">
                             <span class="text-gray-700">Status</span>
                             <span style="color: #ff0000">*</span>
-                            <input type="text"
-                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                v-model="services.status" />
-                            <span class="text-black" v-if="v$.services.status.$error">
-                                <p class="text-red-700" v-for="error of v$.services.status.$errors" :key="error.$uid">
-                                    {{ error.$message }}!
-                                </p>
-                            </span>
+                            <div>
+                                <input type="radio" id="active" name="status" value="active" v-model="services.status"
+                                    class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" />
+                                <label for="active" class="ml-2">Active</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="inactive" name="status" value="inactive" v-model="services.status"
+                                    class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" />
+                                <label for="active" class="ml-2">Inactive</label>
+                            </div>
                         </label>
                     </div>
 
@@ -118,14 +120,27 @@ export default {
 
                 </div>
 
-                <!-- form field
-                Button to submit form inputs -->
-                <div class="flex justify-between mt-10 mr-20">
-                    <button class="bg-red-700 text-white rounded" type="submit">
-                        Add New Service
-                    </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+                    <div class="flex justify-between mt-10 mr-20">
+                        <button class="bg-red-700 text-white rounded"  type="submit">
+                            Add New Service
+                        </button>
+                    </div>
                 </div>
             </form>
+
+            <div class="flex justify-between mt-10 mr-20">
+                <button class="border border-red-700 bg-blue-700 text-white rounded" @click="$router.back()">
+                        Go Back
+                </button>
+            </div>
         </div>
     </main>
 </template>
+
+
+<style>
+button:hover {
+    opacity: 0.5;
+}
+</style>

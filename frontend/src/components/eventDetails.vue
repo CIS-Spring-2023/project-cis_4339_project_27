@@ -3,15 +3,21 @@ import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import axios from 'axios'
 import { DateTime } from 'luxon'
+import { userLoggedIn } from '@/store/userLoggedIn'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   props: ['id'],
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) }
+    const store = userLoggedIn();
+    return { 
+      v$: useVuelidate({ $autoDirty: true }),
+      store
+    }
   },
   data() {
     return {
+      listOfServices: [],
       clientAttendees: [],
       event: {
         name: '',
@@ -30,6 +36,9 @@ export default {
     }
   },
   created() {
+    axios.get(`${apiURL}/services`).then((res) => {
+      this.listOfServices = res.data
+    })
     axios.get(`${apiURL}/events/id/${this.$route.params.id}`).then((res) => {
       this.event = res.data
       this.event.date = this.formattedDate(this.event.date)
@@ -154,61 +163,24 @@ export default {
           <div></div>
           <div></div>
           <div></div>
+
           <!-- form field -->
-          <div class="flex flex-col grid-cols-3">
-            <label>Services Offered at Event</label>
-            <div>
-              <label for="familySupport" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="familySupport"
-                  value="Family Support"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Family Support</span>
-              </label>
-            </div>
-            <div>
-              <label for="adultEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="adultEducation"
-                  value="Adult Education"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Adult Education</span>
-              </label>
-            </div>
-            <div>
-              <label for="youthServices" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="youthServices"
-                  value="Youth Services Program"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Youth Services Program</span>
-              </label>
-            </div>
-            <div>
-              <label for="childhoodEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="childhoodEducation"
-                  value="Early Childhood Education"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Early Childhood Education</span>
-              </label>
-            </div>
+          <div class="flex flex-col">
+            <label class="block">
+              <span class="text-gray-700">Services Offered at Event</span>
+              <div class="flex flex-col">
+                <div v-for="service in listOfServices" :key="service._id">
+                  <div v-if="service.status === 'active'">
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" :value="service._id" v-model="event.services"
+                        class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                        notchecked />
+                      <span class="ml-2">{{ service.serviceName }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </label>
           </div>
         </div>
 
@@ -286,6 +258,7 @@ export default {
         >
           <div class="flex justify-between mt-10 mr-20">
             <button
+              v-if="store.role === 'editor'"
               @click="handleEventUpdate"
               type="submit"
               class="bg-green-700 text-white rounded"
@@ -295,6 +268,7 @@ export default {
           </div>
           <div class="flex justify-between mt-10 mr-20">
             <button
+              v-if="store.role === 'editor'"
               @click="eventDelete"
               type="submit"
               class="bg-red-700 text-white rounded"

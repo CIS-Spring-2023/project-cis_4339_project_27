@@ -30,10 +30,9 @@ export default {
     }
   },
   created() {
-    // axios.get(`${apiURL}/services`).then((res) => {
-    //   this.listServices = res.data.filter(i => i.status === 'active')
-    // })
-    this.listServices = JSON.parse(localStorage.getItem('services') || '[]')
+    axios.get(`${apiURL}/services`).then((res) => {
+      this.listServices = res.data
+    })
   },
   methods: {
     async handleSubmitForm() {
@@ -134,15 +133,13 @@ export default {
             <label class="block">
               <span class="text-gray-700">Services Offered at Event</span>
               <div class="flex flex-col">
-                <!-- Services options are pulled from the different services created in the
-                services data layer rathen than a hardcoded data. Options are showed as checkboxes-->
-                <div v-for="(service,index) in listServices" :key="index">
+                <div v-for="service in listServices" :key="service._id">
                   <div v-if="service.status === 'active'">
                     <label class="inline-flex items-center">
-                      <input type="checkbox" :value="index" v-model="event.services"
+                      <input type="checkbox" :value="service._id" v-model="event.services"
                         class="w-4 h-4  focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
                         notchecked />
-                      <span class="ml-2">{{ service.name }}</span>
+                      <span class="ml-2">{{ service.serviceName }}</span>
                     </label>
                   </div>
                 </div>

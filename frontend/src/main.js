@@ -4,20 +4,23 @@ import App from './App.vue'
 
 
 import { createPinia } from 'pinia'
-import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue } from 'bootstrap-vue'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import axios from "axios"
 
 const pinia = createPinia()
-pinia.use(piniaPluginPersistedState)
 
-pinia.use(({ store }) => {
-    store.$router= markRaw(router)
-})
 
 const app = createApp(App)
-app.use(router)
+pinia.use(({ store }) => {
+    store.$router = markRaw(router)
+  });
+pinia.use(piniaPluginPersistedstate)
+
+
 app.use(pinia)
+app.use(router)
 app.mount('#app')

@@ -16,14 +16,15 @@ export default {
       labels: [],
       chartData: [],
       loading: false,
+      pieLoading: false,
       error: null,
-      // Piechart labels and data
-      pielabels: ['77001', '73301', '90001', '02115', '10000'],
-      pieData: [5, 3, 1, 1, 1]
+      pielabels: [],
+      pieData: []
     }
   },
   mounted() {
-    this.getAttendanceData()
+    this.getAttendanceData(),
+    this.clientByZip()
   },
   methods: {
     // Get attendance from API
@@ -60,7 +61,19 @@ export default {
       }
       this.loading = false
     },
+
     //Get clients by zipcode API
+    async clientByZip() {
+      try {
+        const res = await axios.get(`${apiURL}/clients/zip`)
+        this.pieLoading = true
+        this.pielabels = res.data.map((zip) => zip._id)
+        this.pieData = res.data.map((num) => num.count)
+        console.log(this.pielabels)
+      } catch(err) {
+        console.log(err)
+      }
+    },
 
     // Formatting date for barchart
     formattedDate(datetimeDB) {
@@ -156,16 +169,17 @@ export default {
             </thead>
             <tbody class="divide-y divide-gray-300">
               <tr
-              v-for="client, i in pielabels"
+              v-for="zips, i in pielabels"
               >
-                <td class="p-2 text-left">{{ client }}</td>
-                <td class="p-2 text-left">{{ this.pieData[i] }}</td>
+                <td class="p-2 text-left">{{ zips }}</td>
+                <td class="p-2 text-left">{{ pieData[i] }}</td>
               </tr>
             </tbody>
           </table>
           <!--Client by zip pie chart section-->
           <div>
             <ClientChart
+            v-if="pieLoading"
               :label="pielabels"
               :chart-data="pieData">
             </ClientChart>

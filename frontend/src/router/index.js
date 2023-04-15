@@ -18,7 +18,7 @@ const routes = [
     path: '/intakeform',
     name: 'intakeform',
     props: true,
-    component: () => import('../components/intakeForm.vue')
+    component: () => import('../components/intakeForm.vue'),
   },
   {
     path: '/findclient',
@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/service',
     name: 'service',
-    component: () => import('../components/service.vue')
+    component: () => import('../components/service.vue'),
   },
   {
     path: '/createservice',

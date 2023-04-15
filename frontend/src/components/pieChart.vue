@@ -14,25 +14,21 @@ export default {
         }
     },
     mounted() {
-        // Mounting the chart
+        //calling the function to use background color
+        const pieBackgroundColor = this.chartData.map(() => this.getColor())
+        // Pie chart component
         new Chart(this.$refs.myChart, {
             type: 'doughnut',
             data: {
                 labels: this.label,
                 datasets: [
                     {
-                        label: 'Clients by Zip',
                         data: this.chartData,
-                        backgroundColor: ['blue',
-                            '#c8102e',
-                            'orange',
-                            'violet',
-                            'pink'
-                        ]
+                        backgroundColor: pieBackgroundColor
                     }
                 ]
             },
-            options : {
+            options: {
                 plugins: {
                     legend: {
                         display: true
@@ -43,6 +39,14 @@ export default {
             }
         }
         );
+    },
+
+    methods: {
+        // apply color randomized function
+        getColor() {
+            let channel = () => Math.random() * 255
+            return `rgba(${channel()}, ${channel()}, ${channel()}, 0.8)`
+        }
     }
 }
 </script>

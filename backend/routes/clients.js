@@ -20,6 +20,24 @@ router.get('/', (req, res, next) => {
     .limit(10)
 })
 
+// GET zip codes of clients
+router.get('/zip', (req, res, next) => {
+  clients
+  .aggregate([
+    {
+      $group: {_id: "$address.zip", count: {$sum: 1}}
+    }
+  ], (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      return res.json(data)
+    }
+  })
+  .sort({ count: -1 })
+  .limit(5)
+})
+
 // GET single client by ID
 router.get('/id/:id', (req, res, next) => {
   // use findOne instead of find to not return array
