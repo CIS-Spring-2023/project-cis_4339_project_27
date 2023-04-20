@@ -46,7 +46,8 @@ router.post('/', (req, res, next) => {
     }
   })
 })
-// change service status
+
+// UPDATE service status
 router.put('/status/:id/:val', (req, res, next) => {
   services.findByIdAndUpdate(req.params.id, {$set: {status: req.params.val}}, (error, data) => {
     if (error) {
@@ -56,7 +57,8 @@ router.put('/status/:id/:val', (req, res, next) => {
     }
   })
 })
-// Update service
+
+// Update service information
 router.put('/update/:id', (req, res, next) => {
   services.findByIdAndUpdate(req.params.id, req.body, (error, data) => {
     if (error) {
@@ -68,6 +70,7 @@ router.put('/update/:id', (req, res, next) => {
 })
 
 // Delete service
+// Unused hard delete api endpoint
 router.delete('/:id', (req, res, next) => {
   services.findOneAndDelete({ _id: req.params.id }, (error, data) => {
     if (error) {

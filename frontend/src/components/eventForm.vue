@@ -129,6 +129,7 @@ export default {
           <div></div>
 
           <!-- form field -->
+          <!-- Dynamic way of listing the different services used in creating an event -->
           <div class="flex flex-col">
             <label class="block">
               <span class="text-gray-700">Services Offered at Event</span>
