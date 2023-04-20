@@ -24,6 +24,7 @@ export default {
   },
   mounted() {
     this.getAttendanceData(),
+    // Mounting the function so it loads the data if the user goes to the page
     this.clientByZip()
   },
   methods: {
@@ -62,7 +63,7 @@ export default {
       this.loading = false
     },
 
-    //Get clients by zipcode API
+    // Get clients by zipcode function
     async clientByZip() {
       try {
         const res = await axios.get(`${apiURL}/clients/zip`)

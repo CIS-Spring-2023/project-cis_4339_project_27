@@ -4,7 +4,7 @@ import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
 export default {
-    //Chart props to send data from parent component to piechart
+    //Chart props to use data in the parent component to piechart
     props: {
         label: {
             type: Array
@@ -14,7 +14,7 @@ export default {
         }
     },
     mounted() {
-        //calling the function to use background color
+        // Creating a variable to access color generator function
         const pieBackgroundColor = this.chartData.map(() => this.getColor())
         // Pie chart component
         new Chart(this.$refs.myChart, {
