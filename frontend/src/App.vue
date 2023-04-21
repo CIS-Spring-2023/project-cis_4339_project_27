@@ -20,7 +20,7 @@ export default {
   },
   created() {
     axios.get(`${apiURL}/org`).then((res) => {
-      this.orgName = res.data.name
+      this.orgName = res.data.orgname
     })
   },
   setup() {
