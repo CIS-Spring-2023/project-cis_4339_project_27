@@ -73,3 +73,35 @@ Some of the routes may not be fully functional since they need backend connetion
 Currently only the services route, login, and dashboard is working since they do not
 need backend connection. The backend connection will be implemented during
 sprint 3.
+
+
+### Sprint 3 Documentation
+-- Sprint 3 Documentation
+
+### Users
+To login, please use the following accounts to test privileges and app.
+
+    -- Admin role with all privileges
+    user1 = username: ysaguin
+            password: pass123
+    user2 = username: kluong
+            password: 123456
+    
+    -- Viewer role with only view privileges
+    user1 = username: testuser
+            password: 123456
+
+### Piechart
+
+Implemented backend connection with piechart and renders the data in the frontend by pulling data
+from the API request.
+
+### Services Data Layer
+
+Added API request implementation with the services data layer. Uses different components to create new service
+and update a service. Soft-delete option for services also uses API requests. 
+
+### Events Data Layer
+
+Services options in the create event and update event form now pulls the data from the database rather than 
+a hardcoded option. Services are listed in checkboxes and listed if they have a status of "active".

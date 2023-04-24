@@ -15,12 +15,13 @@ export default {
   },
   data() {
     return {
+      // Fallback orgname
       orgName: 'Dataplatform',
     }
   },
   created() {
     axios.get(`${apiURL}/org`).then((res) => {
-      this.orgName = res.data.name
+      this.orgName = res.data.orgname
     })
   },
   setup() {

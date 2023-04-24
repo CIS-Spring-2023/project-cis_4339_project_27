@@ -29,4 +29,9 @@ Branch used for testing code before pushing to main branch.
 For sprint 2 documentation, please refer to the README file inside
 the frontend folder.
 
+## Sprint 3 Documentation
+
+For sprint 3 documentation, please refer to the README file inside
+the frontend and backend folder with '-- Sprint 3 Documentation' title.
+
 
