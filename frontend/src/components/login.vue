@@ -1,6 +1,6 @@
 <template>
     <main>
-
+        <!-- Simple form for Login -->
         <div class="row justify-content-center pt-3">
             <div class="col-md-4">
                 <h1 class="text-center pb-3 font-weight-bold text-danger fs-3">Login Page</h1>
