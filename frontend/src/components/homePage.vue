@@ -160,7 +160,7 @@ export default {
           </div>
           <!--End of Attendance chart-->
 
-          <!--Table for zip and number of clients-->
+          <!--Table details for zip and number of clients-->
           <table class="min-w-full shadow-md rounded">
             <thead class="bg-gray-50 text-xl">
               <tr class="p-4 text-left">
