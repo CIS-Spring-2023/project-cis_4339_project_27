@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from "axios";
+const apiURL = import.meta.env.VITE_ROOT_API
 
 export const userLoggedIn = defineStore({
     id:"loggedInUser",
@@ -17,7 +18,7 @@ export const userLoggedIn = defineStore({
         // Login action for store
         async login(username, password) {
             try{
-                const response = await axios.post('http://localhost:3000/users', { username: username, password: password });
+                const response = await axios.post(`${apiURL}/users`, { username: username, password: password });
 
                 if(response) {
                     this.$patch({
