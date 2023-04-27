@@ -15,6 +15,7 @@ export const userLoggedIn = defineStore({
 
 
     actions: {
+        // Login action for store
         async login(username, password) {
             try{
                 const response = await axios.post(`${apiURL}/users`, { username: username, password: password });
@@ -32,6 +33,7 @@ export const userLoggedIn = defineStore({
                 alert(error)
             }
         },
+        // Logout action for store
         logout () {
             if(window.confirm('Do you want to logout?')) {
                 this.$patch({

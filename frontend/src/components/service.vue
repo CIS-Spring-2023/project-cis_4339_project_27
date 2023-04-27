@@ -20,6 +20,7 @@
           <td>{{ service.serviceName }}</td>
           <td>{{ service.description }}</td>
           <td>{{ service.status }}</td>
+          <!-- Section for the different buttons in the table -->
           <td v-if="user.role === 'editor'">
             <button
               @click.prevent="updateItem(service._id)"
@@ -89,6 +90,7 @@ export default {
     }
   },
   created() {
+    // Gets all the services data from the backend
     axios.get(`${apiURL}/services`).then((res) => {
       this.servicesData = res.data
     })
@@ -109,6 +111,7 @@ export default {
     //       })
     //   }
     // },
+    // Updating service by pushing service data to the updateservice component
     updateItem(serviceID) {
       this.$router.push({ name: 'updateservice', params: { id: serviceID } })
     },
@@ -125,6 +128,7 @@ export default {
       }
     },
 
+    // Set the service status to inactive
     async deactiveStatus(serviceID) {
       try {
         await axios.put(
