@@ -33,3 +33,16 @@ Updated and implemented Post Documentation can be found at <https://documenter.g
 
 Created new API endpoints for services data layer, user login, and clients by zipcode. Created schema models for each
 collection inside the models.js file.
+
+-- Users Endpoints
+Created 2 endpoints for users in users.js. One endpoint is a post request for login and another post endpoint to use for creating 
+new users. Endpoint for creating users can only be accessed using Postman.
+
+-- Services Endpoints
+Created endpoints for creating, updating, and retrieving services from database. There is unimplemented hard delete
+endpoint. Two update endpoints were created one to update the whole service information and another to update services 
+status.
+
+-- Models.js
+User data schema and services data scheme were created inside the the model.js file. The database schema shows how each
+collection for both data layers are saved inside the database.
