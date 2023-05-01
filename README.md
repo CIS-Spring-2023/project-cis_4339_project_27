@@ -43,4 +43,10 @@ In the frontend instance settings, we changed the root directory to refer to the
 command "npm start -- --host". We also setup the env variable with the vite_root_api referencing the backend instance. For the backend instance, we also changed the root directory to refer to its folder and but added a build command instead with "npm installl". The env variable
 for this instance is the same as the .env file that was used to run the app locally.
 
+Frontend cloud deployment - implemented through Railway by creating a new project instance by setting up the frontend folder
+as the root directory in the instance settings.
+
+Backend cloud deployment - implemented through Railway by creating a new project instance by setting up the backend folder
+as the root directory in the instance settings.
+
 This is the link to the web app in the cloud: https://cis4339-27.up.railway.app/

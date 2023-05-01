@@ -7,12 +7,12 @@
                 <form @submit.prevent="store.login(username, password)">
                     <div class="form-group">
                         <label>Username</label>
-                        <input class="form-control" type="text" name="username" v-model="username" placeholder="Username" />
+                        <input class="form-control" type="text" name="username" v-model="username" placeholder="Username" required/>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
                         <input class="form-control" type="password" name="password" v-model="password"
-                            placeholder="Password" />
+                            placeholder="Password" required/>
                     </div>
                     <div>
                         <button class="btn-grp" type="submit">Login</button>
